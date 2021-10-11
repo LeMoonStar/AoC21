@@ -4,7 +4,7 @@ pub trait Day {
     fn first(input: &String) -> Result<u64, Box<dyn std::error::Error>>;
     fn second(input: &String) -> Result<u64, Box<dyn std::error::Error>>;
     
-    fn run(input: &String, mode: DayMode) -> Vec<Result<u64, Box<dyn std::error::Error>>> {
+    fn run(input: &String, mode: &DayMode) -> Vec<Result<u64, Box<dyn std::error::Error>>> {
         let mut output = Vec::with_capacity(match mode {
             DayMode::One | DayMode::Two => 1,
             DayMode::Both => 2
