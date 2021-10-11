@@ -9,7 +9,7 @@ fn get_input(day: u8) -> String {
             let mut input = String::new();
             let stdin = std::io::stdin();
 
-            println!("Please paste the challange input, and then press {}", match cfg!(windows) { true => "CTRL-Z", _ => "CTRL-D"});
+            println!("Input file 'input{:02}.txt' not detected, please paste the challange input, and then press {}", day, match cfg!(windows) { true => "CTRL-Z", _ => "CTRL-D"});
 
             loop {
                 match stdin.read_line(&mut input) {
