@@ -1,5 +1,5 @@
-use std::fs::read_to_string;
 use aoc21::{run, DayMode};
+use std::fs::read_to_string;
 
 fn get_input(day: u8) -> String {
     eprintln!("test");
@@ -13,7 +13,11 @@ fn get_input(day: u8) -> String {
 
             loop {
                 match stdin.read_line(&mut input) {
-                    Ok(l) => if l == 0 {break;},
+                    Ok(l) => {
+                        if l == 0 {
+                            break;
+                        }
+                    }
                     Err(err) => panic!("Error encountered while trying to read stdin: {}", err),
                 }
             }
@@ -30,18 +34,25 @@ fn main() {
 
     match args.len() {
         2 => match args[1].parse::<u8>() {
-                Ok(n) => run(n, &DayMode::Both, &get_input(n)),
-                Err(_) => eprintln!("Day arument must be a integer in range 1-25."),
-            },
+            Ok(n) => run(n, &DayMode::Both, &get_input(n)),
+            Err(_) => eprintln!("Day arument must be a integer in range 1-25."),
+        },
         3 => match args[1].parse::<u8>() {
-                Ok(n) => run(n, match args[2].to_lowercase().as_str() {
+            Ok(n) => run(
+                n,
+                match args[2].to_lowercase().as_str() {
                     "1" | "one" | "first" => &DayMode::One,
                     "2" | "two" | "second" => &DayMode::Two,
                     "both" | "all" | "full" => &DayMode::Both,
-                    _ => {eprintln!("(optional) Part argument must be one of the folowing: '1', 'one', 'first', '2', 'two', 'second', 'both', 'all', 'full'."); &DayMode::Both}
-                }, &get_input(n)),
-                Err(_) => eprintln!("Day arument must be a integer in range 1-25."),
-            },
+                    _ => {
+                        eprintln!("(optional) Part argument must be one of the folowing: '1', 'one', 'first', '2', 'two', 'second', 'both', 'all', 'full'.");
+                        &DayMode::Both
+                    }
+                },
+                &get_input(n),
+            ),
+            Err(_) => eprintln!("Day arument must be a integer in range 1-25."),
+        },
         0 => eprintln!("Usage: aoc21 day [part]"), // This normally shouldnt be called, it's just here so we dont panic even if this is for some reason the case.
         1 | _ => eprintln!("Usage: {} day [part]", args[0]),
     }

@@ -7,7 +7,7 @@ impl Day for Day1 {
         Ok(input.parse::<u64>()?)
     }
 
-    fn second(input: &String) -> Result<u64, Box<dyn std::error::Error>> {     
+    fn second(input: &String) -> Result<u64, Box<dyn std::error::Error>> {
         Ok(input.parse::<u64>()?)
     }
 }
