@@ -1,5 +1,8 @@
 pub mod days;
 
+#[cfg(test)]
+pub mod tests;
+
 use crate::days::*;
 
 pub enum DayMode {
