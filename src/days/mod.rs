@@ -1,24 +1,26 @@
 use crate::DayMode;
 
 pub trait Day {
-    fn first(input: &String) -> Result<u64, Box<dyn std::error::Error>>;
-    fn second(input: &String) -> Result<u64, Box<dyn std::error::Error>>;
+    fn new(input: &String) -> Self;
+    fn first(&self) -> Result<u64, Box<dyn std::error::Error>>;
+    fn second(&self) -> Result<u64, Box<dyn std::error::Error>>;
+}
 
-    fn run(input: &String, mode: &DayMode) -> Vec<Result<u64, Box<dyn std::error::Error>>> {
-        let mut output = Vec::with_capacity(match mode {
-            DayMode::One | DayMode::Two => 1,
-            DayMode::Both => 2,
-        });
-        match mode {
-            DayMode::One => output.push(Self::first(input)),
-            DayMode::Two => output.push(Self::second(input)),
-            DayMode::Both => {
-                output.push(Self::first(input));
-                output.push(Self::second(input))
-            }
-        };
-        output
-    }
+pub fn run_day<D: Day>(input: &String, mode: &DayMode) -> Vec<Result<u64, Box<dyn std::error::Error>>> {
+    let mut output = Vec::with_capacity(match mode {
+        DayMode::One | DayMode::Two => 1,
+        DayMode::Both => 2,
+    });
+    let day = D::new(input);
+    match mode {
+        DayMode::One => output.push(day.first()),
+        DayMode::Two => output.push(day.second()),
+        DayMode::Both => {
+            output.push(day.first());
+            output.push(day.second())
+        }
+    };
+    output
 }
 
 pub mod d01;

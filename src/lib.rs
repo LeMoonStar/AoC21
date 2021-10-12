@@ -4,6 +4,7 @@ pub mod days;
 pub mod tests;
 
 use crate::days::*;
+use crate::days::run_day;
 
 pub enum DayMode {
     One,
@@ -11,32 +12,40 @@ pub enum DayMode {
     Both,
 }
 
+enum Success<T> {
+    Yes(T),
+    No(&'static str)
+}
+
 pub fn run(day: u8, mode: &DayMode, input: &String) {
-    match day {
-        1 => {
-            let results = d01::Day1::run(input, mode);
-            match mode {
-                DayMode::One => match results[0] {
+    let result: Success<Vec<Result<u64, Box<dyn std::error::Error>>>> = match day {
+        1 => Success::Yes(run_day::<d01::Day1>(input, mode)),
+        0 | 26.. => Success::No("This is not a valid day. only days in range of 1-25 are valid."),
+        _ => Success::No("This day is not implemented yet."),
+    };
+
+    match result {
+        Success::Yes(results) => match mode {
+            DayMode::One => match results[0] {
+                Ok(r) => println!("The result for Part 1 is: {}", r),
+                Err(_) => panic!("An error occured while processing Part 1."),
+            },
+            DayMode::Two => match results[0] {
+                Ok(r) => println!("The result for Part 2 is: {}", r),
+                Err(_) => panic!("An error occured while processing Part 2"),
+            },
+            DayMode::Both => {
+                match results[0] {
                     Ok(r) => println!("The result for Part 1 is: {}", r),
-                    Err(_) => panic!("An error occured while processing Part 1."),
-                },
-                DayMode::Two => match results[0] {
+                    Err(_) => panic!("An error occured while processing Part 1"),
+                }
+                match results[1] {
                     Ok(r) => println!("The result for Part 2 is: {}", r),
                     Err(_) => panic!("An error occured while processing Part 2"),
-                },
-                DayMode::Both => {
-                    match results[0] {
-                        Ok(r) => println!("The result for Part 1 is: {}", r),
-                        Err(_) => panic!("An error occured while processing Part 1"),
-                    }
-                    match results[1] {
-                        Ok(r) => println!("The result for Part 2 is: {}", r),
-                        Err(_) => panic!("An error occured while processing Part 2"),
-                    }
                 }
             }
-        }
-        0 | 26.. => eprintln!("This is not a valid day. only days in range of 1-25 are valid."),
-        _ => eprintln!("This day is not implemented yet."),
+        },
+        Success::No(e) => eprintln!("{}", e),
     }
+
 }
