@@ -18,7 +18,7 @@ impl Day for Day1 {
         let mut last: u64 = 0;
         let mut count = 0;
         for v in &self.input {
-            if last == 0 && *v > last {
+            if last != 0 && *v > last {
                 count = count + 1;
             }
             last = *v;
