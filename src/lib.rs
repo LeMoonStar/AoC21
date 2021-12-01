@@ -3,8 +3,8 @@ pub mod days;
 #[cfg(test)]
 pub mod tests;
 
-use crate::days::*;
 use crate::days::run_day;
+use crate::days::*;
 
 pub enum DayMode {
     One,
@@ -14,7 +14,7 @@ pub enum DayMode {
 
 enum Success<T> {
     Yes(T),
-    No(&'static str)
+    No(&'static str),
 }
 
 pub fn run(day: u8, mode: &DayMode, input: &String) {
@@ -47,5 +47,4 @@ pub fn run(day: u8, mode: &DayMode, input: &String) {
         },
         Success::No(e) => eprintln!("{}", e),
     }
-
 }
