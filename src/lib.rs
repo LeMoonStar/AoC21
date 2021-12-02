@@ -20,6 +20,7 @@ enum Success<T> {
 pub fn run(day: u8, mode: &DayMode, input: &String) {
     let result: Success<Vec<Result<u64, Box<dyn std::error::Error>>>> = match day {
         1 => Success::Yes(run_day::<d01::Day1>(input, mode)),
+        2 => Success::Yes(run_day::<d02::Day2>(input, mode)),
         0 | 26.. => Success::No("This is not a valid day. only days in range of 1-25 are valid."),
         _ => Success::No("This day is not implemented yet."),
     };
