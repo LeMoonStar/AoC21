@@ -1,59 +1,73 @@
-use aoc21::{run, DayMode};
-use std::fs::read_to_string;
-
-fn get_input(day: u8) -> String {
-    eprintln!("test");
-    match read_to_string(format!("input{:02}.txt", day)) {
-        Ok(input) => input,
-        Err(_) => {
-            let mut input = String::new();
-            let stdin = std::io::stdin();
-
-            println!("Input file 'input{:02}.txt' not detected, please paste the challange input, and then press {}", day, match cfg!(windows) { true => "CTRL-Z", _ => "CTRL-D"});
-
-            loop {
-                match stdin.read_line(&mut input) {
-                    Ok(l) => {
-                        if l == 0 {
-                            break;
-                        }
-                    }
-                    Err(err) => panic!("Error encountered while trying to read stdin: {}", err),
-                }
-            }
-
-            println!("\nInput ended.");
-
-            input
-        }
-    }
-}
+use clap::{App, AppSettings, Arg, SubCommand};
+use aoc21::{run_day, Part};
 
 fn main() {
-    let args: Vec<String> = std::env::args().collect();
-
-    match args.len() {
-        2 => match args[1].parse::<u8>() {
-            Ok(n) => run(n, &DayMode::Both, &get_input(n)),
-            Err(_) => eprintln!("Day arument must be a integer in range 1-25."),
-        },
-        3 => match args[1].parse::<u8>() {
-            Ok(n) => run(
-                n,
-                match args[2].to_lowercase().as_str() {
-                    "1" | "one" | "first" => &DayMode::One,
-                    "2" | "two" | "second" => &DayMode::Two,
-                    "both" | "all" | "full" => &DayMode::Both,
-                    _ => {
-                        eprintln!("(optional) Part argument must be one of the folowing: '1', 'one', 'first', '2', 'two', 'second', 'both', 'all', 'full'.");
-                        &DayMode::Both
+    let matches = App::new("Advent Of Code 2021")
+        .author("LeMoonStar <webmaster@unitcore.de>")
+        .about("My Advent Of Code 2021 solutions.")
+        .setting(AppSettings::SubcommandRequiredElseHelp)
+        .arg(
+            Arg::with_name("day")
+                .help("The number of the day to execute")
+                .required(true)
+                .takes_value(true)
+                .validator(|v| match v.parse::<u8>() {
+                    Ok(day) => {
+                        if 0 < day && day <= 25 {
+                            Ok(())
+                        } else {
+                            Err("The day must be between 1 and 25.".to_string())
+                        }
                     }
-                },
-                &get_input(n),
-            ),
-            Err(_) => eprintln!("Day arument must be a integer in range 1-25."),
-        },
-        0 => eprintln!("Usage: aoc21 day [part]"), // This normally shouldnt be called, it's just here so we dont panic even if this is for some reason the case.
-        1 | _ => eprintln!("Usage: {} day [part]", args[0]),
+                    Err(_) => Err("The day must be a number between 1 and 25.".to_string()),
+                }),
+        )
+        .arg(
+            Arg::with_name("part")
+                .help("Specifies the part of the day to compute.")
+                .long("part")
+                .short("p")
+                .default_value("b")
+                .possible_values(&["1", "2", "b"])
+                .takes_value(true),
+        )
+        .arg(
+            Arg::with_name("verbose")
+                .help("Print verbose information")
+                .long("verbose")
+                .short("v"))
+        .subcommand(
+            SubCommand::with_name("test").about("Test the day with the example input data."),
+        )
+        .subcommand(
+            SubCommand::with_name("auto")
+                .about("Automatically download input from AoC using the provided session and run the solution.")
+                .arg(Arg::with_name("session")
+                    .help("The AoC browser session string. If not provided, uses the AOC_SESSION eviroment variable.")
+                    .short("s")
+                    .long("session")
+                    .takes_value(true))
+                .arg(Arg::with_name("no_cache")
+                    .help("Dont cache the input, and delete any current cache for this day.")
+                    .short("N")
+                    .long("no-cache")))
+        .subcommand(
+            SubCommand::with_name("run")
+                .about("Use either a file or stdin as input and run the solution.")
+                .arg(Arg::with_name("file")
+                    .help("Specify a file to be used as input, otherwise use stdin.")
+                    .short("f")
+                    .long("file")
+                    .takes_value(true)
+            )
+        )
+        .get_matches();
+
+    println!("{:?}", matches);
+
+    match matches.subcommand_matches("test") {
+        Some(_) => {}
+        None => {}
     }
+    run_day(1, Part::Both, &"1".to_owned());
 }

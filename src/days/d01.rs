@@ -1,42 +1,28 @@
-use super::Day;
+use super::{Day, DayImpl};
 
-pub struct Day1 {
-    input: Vec<u64>,
-}
+const CURRENT_DAY: u8 = 1;
 
-impl Day for Day1 {
-    fn new(input: &String) -> Self {
-        Day1 {
-            input: input
+type Data = Vec<u64>;
+impl DayImpl<Data> for Day<CURRENT_DAY> {
+    fn init(input: &String) -> (Self, Data)
+    where
+        Self: Sized,
+    {
+        (
+            Self {},
+            input
                 .lines()
-                .map(|l| l.parse::<u64>().expect("couldnt parse input."))
+                .filter(|v| v.len() != 0)
+                .map(|v| v.parse::<u64>().expect("error while parsing input."))
                 .collect(),
-        }
+        )
     }
 
-    fn first(&self) -> Result<u64, Box<dyn std::error::Error>> {
-        let mut last: u64 = 0;
-        let mut count = 0;
-        for v in &self.input {
-            if last != 0 && *v > last {
-                count = count + 1;
-            }
-            last = *v;
-        }
-        Ok(count)
+    fn one(&self, data: &mut Data) -> u64 {
+        data.len() as u64
     }
 
-    fn second(&self) -> Result<u64, Box<dyn std::error::Error>> {
-        let mut last: u64 = 0;
-        let mut count = 0;
-        for i in 1..self.input.len() - 1 {
-            let sum: u64 = self.input[i - 1] + self.input[i] + self.input[i + 1];
-
-            if i != 1 && sum > last {
-                count = count + 1;
-            }
-            last = sum;
-        }
-        Ok(count)
+    fn two(&self, data: &mut Data) -> u64 {
+        data.len() as u64
     }
 }

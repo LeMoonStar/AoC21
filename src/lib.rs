@@ -1,51 +1,28 @@
-pub mod days;
+use aoc_macro::match_and_run_day;
+use crate::days::Day;
+use crate::days::DayImpl;
+use colored::*;
+use std::time::Duration;
 
-#[cfg(test)]
-pub mod tests;
+mod days;
 
-use crate::days::run_day;
-use crate::days::*;
-
-pub enum DayMode {
+pub enum Part {
     One,
     Two,
     Both,
 }
 
-enum Success<T> {
-    Yes(T),
-    No(&'static str),
-}
+pub fn run_day(day: u8, part: Part, input: &String) {
+    println!("{} Day {}", "Starting".green(), day);
+    println!("{}", "-----------------------".green().bold());
+    let (one, two, init_t, one_t, two_t) = match_and_run_day!();
 
-pub fn run(day: u8, mode: &DayMode, input: &String) {
-    let result: Success<Vec<Result<u64, Box<dyn std::error::Error>>>> = match day {
-        1 => Success::Yes(run_day::<d01::Day1>(input, mode)),
-        2 => Success::Yes(run_day::<d02::Day2>(input, mode)),
-        0 | 26.. => Success::No("This is not a valid day. only days in range of 1-25 are valid."),
-        _ => Success::No("This day is not implemented yet."),
-    };
-
-    match result {
-        Success::Yes(results) => match mode {
-            DayMode::One => match results[0] {
-                Ok(r) => println!("The result for Part 1 is: {}", r),
-                Err(_) => panic!("An error occured while processing Part 1."),
-            },
-            DayMode::Two => match results[0] {
-                Ok(r) => println!("The result for Part 2 is: {}", r),
-                Err(_) => panic!("An error occured while processing Part 2"),
-            },
-            DayMode::Both => {
-                match results[0] {
-                    Ok(r) => println!("The result for Part 1 is: {}", r),
-                    Err(_) => panic!("An error occured while processing Part 1"),
-                }
-                match results[1] {
-                    Ok(r) => println!("The result for Part 2 is: {}", r),
-                    Err(_) => panic!("An error occured while processing Part 2"),
-                }
-            }
-        },
-        Success::No(e) => eprintln!("{}", e),
-    }
+    println!("{}:", "Results".green().bold());
+    println!("  {} took: {} µs", "Parsing".green(), init_t.as_micros());
+    println!("  {}:", "Part 1".green());
+    println!("      Solution: {}", one);
+    println!("      Took:     {} µs", one_t.as_micros());
+    println!("  {}:", "Part 2".green());
+    println!("      Solution: {}", two);
+    println!("      Took:     {} µs", two_t.as_micros());
 }
