@@ -1,5 +1,5 @@
-use clap::{App, AppSettings, Arg, SubCommand};
 use aoc21::{run_day, Part};
+use clap::{App, AppSettings, Arg, SubCommand};
 
 fn main() {
     let matches = App::new("Advent Of Code 2021")

@@ -1,6 +1,6 @@
-use aoc_macro::match_and_run_day;
 use crate::days::Day;
 use crate::days::DayImpl;
+use aoc_macro::match_and_run_day;
 use colored::*;
 use std::time::Duration;
 
