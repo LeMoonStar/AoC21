@@ -1,4 +1,4 @@
-use aoc21::{run_day, test_day, Part};
+use aoc21::{run_day, set_verbosity, test_day, Part, Verbosity};
 use clap::{App, AppSettings, Arg, SubCommand};
 use reqwest::blocking::Client;
 use reqwest::cookie::Jar;
@@ -41,12 +41,14 @@ fn main() {
             Arg::with_name("verbose")
                 .help("Print verbose information")
                 .long("verbose")
-                .short("v"))
+                .short("v")
+                .conflicts_with("developement"))
         .arg(
             Arg::with_name("developement")
                 .help("Print developement information")
                 .long("dev")
-                .short("d"))
+                .short("d")
+                .conflicts_with("verbose"))
         .subcommand(
             SubCommand::with_name("test").about("Test the day with the example input data."),
         )
@@ -86,6 +88,14 @@ fn main() {
         Some("b") => Part::Both,
         _ => panic!("unexpected part argument."),
     };
+
+    if matches.args.contains_key("verbose") {
+        set_verbosity(Verbosity::Verbose);
+    }
+
+    if matches.args.contains_key("developement") {
+        set_verbosity(Verbosity::Developement);
+    }
 
     match matches.subcommand() {
         ("run", c_matches) => {

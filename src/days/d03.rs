@@ -1,9 +1,10 @@
 use super::{Day, DayImpl};
+use crate::dprintln;
 
 const CURRENT_DAY: u8 = 3;
 
 fn get_bit_from_offset(v: u64, offset: usize) -> bool {
-    println!("{} at offset {} is: {}", v, offset, v & (1 << offset) != 0);
+    dprintln!("{} at offset {} is: {}", v, offset, v & (1 << offset) != 0);
     v & (1 << offset) != 0
 }
 
@@ -78,41 +79,36 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     }
 
     fn two(&self, data: &mut Data) -> u64 {
-        println!("Since I really cant find what I did wrong, and I dont wanna spend more time on this today:");
-        println!("https://www.youtube.com/watch?v=llqWTJGUFeE");
-
-        0
-
-        /*let mut o2_values: Vec<u64> = self
+        let mut o2_values: Vec<u64> = data
             .input
             .iter()
-            .filter(|v| get_bit_from_offset(**v, self.width - 1))
+            .filter(|v| get_bit_from_offset(**v, data.width - 1))
             .map(|v| *v)
             .collect();
 
-        for i in 1..self.width {
+        for i in 1..data.width {
             let offset = i;//self.width - i;
             let positive_bit_count = count_bits(&o2_values, offset);
-            println!("-");
-            println!("{:?}", o2_values);
-            println!(
+            dprintln!("-");
+            dprintln!("{:?}", o2_values);
+            dprintln!(
                 "{} values with a 1(true) at offset {}",
                 positive_bit_count, offset
             );
-            println!(
+            dprintln!(
                 "There are curently {} elements. Meaning that there are {} elements with a 0(false)",
                 o2_values.len(),
                 o2_values.len() as u64 - positive_bit_count
             );
             let expected_bit: bool =
                 positive_bit_count > o2_values.len() as u64 - positive_bit_count;
-            println!("Thus we expect a {} on this position.", expected_bit);
+            dprintln!("Thus we expect a {} on this position.", expected_bit);
             o2_values = o2_values
                 .iter()
                 .filter(|v| get_bit_from_offset(**v, offset))
                 .map(|v| *v)
                 .collect();
-            println!("resulting list: {:?}", o2_values);
+            dprintln!("resulting list: {:?}", o2_values);
         }
 
         let o2_rating = if o2_values.len() == 1 {
@@ -121,8 +117,8 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             panic!("too many or too few results.")
         };
 
-        println!("O2 rating: {}", o2_rating);
+        dprintln!("O2 rating: {}", o2_rating);
 
-        Ok(0)*/
+        o2_rating
     }
 }

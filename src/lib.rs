@@ -2,15 +2,72 @@ use crate::days::Day;
 use crate::days::DayImpl;
 use aoc_macro::*;
 use colored::*;
+use lazy_static::lazy_static;
+use mut_static::MutStatic;
 use std::time::Duration;
 
 mod days;
+
+#[derive(Debug, Clone, PartialEq)]
+pub enum Verbosity {
+    None,
+    Verbose,
+    Developement,
+}
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Part {
     One,
     Two,
     Both,
+}
+
+#[derive(Debug, Clone)]
+pub struct Settings {
+    verbosity: Verbosity,
+}
+
+impl Settings {
+    fn set_verbosity(&mut self, new: Verbosity) {
+        self.verbosity = new;
+    }
+}
+
+lazy_static! {
+    static ref VERBOSITY: MutStatic<Settings> = MutStatic::from(Settings {
+        verbosity: Verbosity::None
+    });
+}
+
+pub fn set_verbosity(new_verbosity: Verbosity) {
+    let mut handle = VERBOSITY.write().unwrap();
+    handle.set_verbosity(new_verbosity);
+}
+
+pub fn get_verbosity() -> Verbosity {
+    VERBOSITY.read().unwrap().verbosity.clone()
+}
+
+#[macro_export]
+macro_rules! vprintln {
+    ($($arg:tt)*) => {
+        if $crate::get_verbosity() ==  $crate::Verbosity::Verbose || $crate::get_verbosity() ==  $crate::Verbosity::Developement {
+            println!(
+                $($arg)*
+            )
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! dprintln {
+    ($($arg:tt)*) => {
+        if $crate::get_verbosity() == $crate::Verbosity::Developement  {
+            println!(
+                $($arg)*
+            )
+        }
+    };
 }
 
 pub fn run_day(day: u8, part: Part, input: &String) {
@@ -43,6 +100,8 @@ pub fn run_day(day: u8, part: Part, input: &String) {
 }
 
 pub fn test_day(day: u8, part: Part) {
+    vprintln!("Test{}", "abc");
+
     println!("{} Day {}", "Testing".green().bold(), day);
     println!("{}", "-----------------------".green().bold());
     match part {
