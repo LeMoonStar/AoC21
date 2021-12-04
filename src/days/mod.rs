@@ -8,7 +8,7 @@ pub struct Day<const DAY: u8>;
 
 pub trait DayImpl<T> {
     /// Parses the test input.
-    fn initTest() -> (Self, T)
+    fn init_test() -> (Self, T)
     where
         Self: Sized;
 
@@ -55,6 +55,44 @@ pub trait DayImpl<T> {
         (day.one(&mut data), day.two(&mut data))
     }
 
+    /// Init and compute part 1
+    fn run_one(input: &String) -> u64
+    where
+        Self: Sized,
+    {
+        let (day, mut data) = Self::init(input);
+        day.one(&mut data)
+    }
+
+    /// Init and compute part 1
+    fn run_two(input: &String) -> u64
+    where
+        Self: Sized,
+    {
+        let (day, mut data) = Self::init(input);
+        day.two(&mut data)
+    }
+
+    /// Init and compute part 1
+    fn run_one_timed(input: &String) -> (u64, Duration, Duration)
+    where
+        Self: Sized,
+    {
+        let ((day, mut data), init_t) = Self::init_timed(input);
+        let (one, one_t) = day.one_timed(&mut data);
+        (one, init_t, one_t)
+    }
+
+    /// Init and compute part 1
+    fn run_two_timed(input: &String) -> (u64, Duration, Duration)
+    where
+        Self: Sized,
+    {
+        let ((day, mut data), init_t) = Self::init_timed(input);
+        let (two, two_t) = day.two_timed(&mut data);
+        (two, init_t, two_t)
+    }
+
     /// Compute both parts, and messure the time each step took
     fn run_timed(input: &String) -> (u64, u64, Duration, Duration, Duration)
     where
@@ -65,6 +103,46 @@ pub trait DayImpl<T> {
         let (two, two_t) = day.two_timed(&mut data);
 
         (one, two, i_t, one_t, two_t)
+    }
+
+    /// Test part one
+    fn test_one() -> (bool, u64, u64)
+    where
+        Self: Sized,
+    {
+        let (day, mut data) = Self::init_test();
+        let one = day.one(&mut data);
+
+        let (one_e, _) = Self::expected_results();
+
+        (one_e == one, one, one_e)
+    }
+
+    /// Test part two
+    fn test_two() -> (bool, u64, u64)
+    where
+        Self: Sized,
+    {
+        let (day, mut data) = Self::init_test();
+        let two = day.two(&mut data);
+
+        let (two_e, _) = Self::expected_results();
+
+        (two_e == two, two, two_e)
+    }
+
+    /// Run both tests
+    fn test() -> ((bool, u64, u64), (bool, u64, u64))
+    where
+        Self: Sized,
+    {
+        let (day, mut data) = Self::init_test();
+        let one = day.one(&mut data);
+        let two = day.two(&mut data);
+
+        let (one_e, two_e) = Self::expected_results();
+
+        ((one_e == one, one, one_e), (two_e == two, two, two_e))
     }
 }
 

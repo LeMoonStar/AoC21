@@ -24,12 +24,82 @@ pub fn match_and_run_day(_input: TokenStream) -> TokenStream {
 }*/
 
 #[proc_macro]
-pub fn match_and_run_day(_input: TokenStream) -> TokenStream {
+pub fn match_and_run_day_both(_input: TokenStream) -> TokenStream {
     let r = 1_u8..26; // == [1,25]
     let res = quote! {
         match day {
             #(#r => {
                 Day::<#r>::run_timed(input)
+            })*
+            _ => panic!("Days out of Bounds! No presents for you!"),
+        }
+    };
+    res.into()
+}
+
+#[proc_macro]
+pub fn match_and_run_day_one(_input: TokenStream) -> TokenStream {
+    let r = 1_u8..26; // == [1,25]
+    let res = quote! {
+        match day {
+            #(#r => {
+                Day::<#r>::run_one_timed(input)
+            })*
+            _ => panic!("Days out of Bounds! No presents for you!"),
+        }
+    };
+    res.into()
+}
+
+#[proc_macro]
+pub fn match_and_run_day_two(_input: TokenStream) -> TokenStream {
+    let r = 1_u8..26; // == [1,25]
+    let res = quote! {
+        match day {
+            #(#r => {
+                Day::<#r>::run_two_timed(input)
+            })*
+            _ => panic!("Days out of Bounds! No presents for you!"),
+        }
+    };
+    res.into()
+}
+
+#[proc_macro]
+pub fn match_and_test_day_both(_input: TokenStream) -> TokenStream {
+    let r = 1_u8..26; // == [1,25]
+    let res = quote! {
+        match day {
+            #(#r => {
+                Day::<#r>::test()
+            })*
+            _ => panic!("Days out of Bounds! No presents for you!"),
+        }
+    };
+    res.into()
+}
+
+#[proc_macro]
+pub fn match_and_test_day_one(_input: TokenStream) -> TokenStream {
+    let r = 1_u8..26; // == [1,25]
+    let res = quote! {
+        match day {
+            #(#r => {
+                Day::<#r>::test_one()
+            })*
+            _ => panic!("Days out of Bounds! No presents for you!"),
+        }
+    };
+    res.into()
+}
+
+#[proc_macro]
+pub fn match_and_test_day_two(_input: TokenStream) -> TokenStream {
+    let r = 1_u8..26; // == [1,25]
+    let res = quote! {
+        match day {
+            #(#r => {
+                Day::<#r>::test_two()
             })*
             _ => panic!("Days out of Bounds! No presents for you!"),
         }

@@ -1,4 +1,4 @@
-use aoc21::{run_day, Part};
+use aoc21::{run_day, test_day, Part};
 use clap::{App, AppSettings, Arg, SubCommand};
 use reqwest::blocking::Client;
 use reqwest::cookie::Jar;
@@ -118,7 +118,7 @@ fn main() {
             let input = get_auto_input(day, &session, cache);
             run_day(day, part, &input);
         }
-        ("test", c_matches) => {}
+        ("test", c_matches) => test_day(day, part),
         _ => panic!("Unexpected Subcommand."),
     }
 }
