@@ -88,7 +88,19 @@ fn main() {
     };
 
     match matches.subcommand() {
-        ("run", c_matches) => {}
+        ("run", c_matches) => {
+            let input = match c_matches {
+                Some(c_matches) => {
+                    if let Some(f) = c_matches.value_of("file") {
+                        fs::read_to_string(Path::new(f)).expect("Error while reading input file")
+                    } else {
+                        get_stdin_day_input(day)
+                    }
+                }
+                None => get_stdin_day_input(day),
+            };
+            run_day(day, part, &input);
+        }
         ("auto", c_matches) => {
             let session: String = match c_matches {
                 Some(c_matches) => match c_matches.value_of("session") {
@@ -109,6 +121,33 @@ fn main() {
         ("test", c_matches) => {}
         _ => panic!("Unexpected Subcommand."),
     }
+}
+
+fn get_stdin_day_input(day: u8) -> String {
+    let mut input = String::new();
+    let stdin = std::io::stdin();
+
+    println!(
+        "Please paste your input for day {}, and then press {}",
+        day,
+        match cfg!(windows) {
+            true => "CTRL-Z",
+            _ => "CTRL-D",
+        }
+    );
+
+    loop {
+        match stdin.read_line(&mut input) {
+            Ok(l) => {
+                if l == 0 {
+                    break;
+                }
+            }
+            Err(err) => panic!("Error encountered while trying to read stdin: {}", err),
+        }
+    }
+
+    input
 }
 
 fn download_input(day: u8, session: &String) -> Result<String, reqwest::Error> {
