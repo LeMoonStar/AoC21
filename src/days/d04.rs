@@ -137,7 +137,6 @@ impl Day for Day4 {
         let mut boards: Vec<Board> = self.boards.clone();
         let mut result = 0;
         for n in &self.numbers {
-            println!("makring num {}!", n);
             for b in &mut boards {
                 if result != 0 {
                     break;
