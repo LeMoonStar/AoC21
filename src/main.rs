@@ -118,7 +118,7 @@ fn main() {
             let input = get_auto_input(day, &session, cache);
             run_day(day, part, &input);
         }
-        ("test", c_matches) => test_day(day, part),
+        ("test", _) => test_day(day, part),
         _ => panic!("Unexpected Subcommand."),
     }
 }
