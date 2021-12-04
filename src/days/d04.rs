@@ -1,4 +1,6 @@
-use super::Day;
+use super::{Day, DayImpl};
+
+const CURRENT_DAY: u8 = 4;
 
 #[derive(Debug, Clone)]
 struct Field {
@@ -9,6 +11,12 @@ struct Field {
 #[derive(Debug, Clone)]
 struct Board {
     data: Vec<Vec<Field>>,
+}
+
+#[derive(Debug, Clone)]
+pub struct Data {
+    numbers: Vec<u8>,
+    boards: Vec<Board>,
 }
 
 impl Board {
@@ -89,35 +97,48 @@ impl Board {
     }
 }
 
-pub struct Day4 {
-    numbers: Vec<u8>,
-    boards: Vec<Board>,
-}
 
-impl Day for Day4 {
-    fn new(input: &String) -> Self {
-        Day4 {
-            numbers: input
-                .lines()
-                .nth(0)
-                .unwrap()
-                .split(",")
-                .map(|v| v.parse::<u8>().expect("couldnt parse input"))
-                .collect(),
-            boards: input
-                .split("\n\n")
-                .skip(1)
-                .filter(|v| v.len() != 0)
-                .map(|v| Board::new(&v))
-                .collect(),
-        }
+impl DayImpl<Data> for Day<CURRENT_DAY> {
+    fn init_test() -> (Self, Data)
+    where
+        Self: Sized,
+    {
+        Self::init(&include_str!("test_inputs/test04.txt").to_owned())
     }
 
-    fn first(&self) -> Result<u64, Box<dyn std::error::Error>> {
-        let mut boards = self.boards.clone();
+    fn expected_results() -> (u64, u64) {
+        (4512, 1924)
+    }
+    
+    fn init(input: &String) -> (Self, Data)
+    where
+        Self: Sized,
+    {
+        (
+            Self {},
+            Data {
+                numbers: input
+                    .lines()
+                    .nth(0)
+                    .unwrap()
+                    .split(",")
+                    .map(|v| v.parse::<u8>().expect("couldnt parse input"))
+                    .collect(),
+                boards: input
+                    .split("\n\n")
+                    .skip(1)
+                    .filter(|v| v.len() != 0)
+                    .map(|v| Board::new(&v))
+                    .collect(),
+            }
+        )
+    }
+
+    fn one(&self, data: &mut Data) -> u64 {
+        let mut boards = data.boards.clone();
 
         let mut result = 0;
-        for n in &self.numbers {
+        for n in &data.numbers {
             for b in &mut boards {
                 if result != 0 {
                     break;
@@ -130,13 +151,13 @@ impl Day for Day4 {
             }
         }
 
-        Ok(result)
+        result
     }
 
-    fn second(&self) -> Result<u64, Box<dyn std::error::Error>> {
-        let mut boards: Vec<Board> = self.boards.clone();
+    fn two(&self, data: &mut Data) -> u64 {
+        let mut boards: Vec<Board> = data.boards.clone();
         let mut result = 0;
-        for n in &self.numbers {
+        for n in &data.numbers {
             for b in &mut boards {
                 if result != 0 {
                     break;
@@ -153,6 +174,6 @@ impl Day for Day4 {
             }
         }
 
-        Ok(result)
+        result
     }
 }

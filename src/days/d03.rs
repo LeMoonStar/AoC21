@@ -1,10 +1,6 @@
-use super::Day;
+use super::{Day, DayImpl};
 
-pub struct Day3 {
-    input: Vec<u64>,
-    width: usize,
-    length: usize,
-}
+const CURRENT_DAY: u8 = 3;
 
 fn get_bit_from_offset(v: u64, offset: usize) -> bool {
     println!("{} at offset {} is: {}", v, offset, v & (1 << offset) != 0);
@@ -21,25 +17,48 @@ fn count_bits(vec: &Vec<u64>, offset: usize) -> u64 {
     count
 }
 
-impl Day for Day3 {
-    fn new(input: &String) -> Self {
-        Day3 {
-            input: input
-                .lines()
-                .filter(|v| v.len() != 0)
-                .map(|v| u64::from_str_radix(v, 2).expect("Couldn't parse input."))
-                .collect(),
-            width: input.lines().next().unwrap().len(),
-            length: input.lines().collect::<Vec<&str>>().len(),
-        }
+pub struct Data {
+    input: Vec<u64>,
+    width: usize,
+    length: usize,
+}
+
+impl DayImpl<Data> for Day<CURRENT_DAY> {
+    fn init_test() -> (Self, Data)
+    where
+        Self: Sized,
+    {
+        Self::init(&include_str!("test_inputs/test03.txt").to_owned())
     }
 
-    fn first(&self) -> Result<u64, Box<dyn std::error::Error>> {
-        let mut counts = Vec::<u64>::with_capacity(self.width);
-        counts.resize(self.width, 0);
+    fn expected_results() -> (u64, u64) {
+        (198, 230)
+    }
 
-        for v in &self.input {
-            for i in 0..self.width {
+    fn init(input: &String) -> (Self, Data)
+    where
+        Self: Sized,
+    {
+        (
+            Self {},
+            Data {
+                input: input
+                    .lines()
+                    .filter(|v| v.len() != 0)
+                    .map(|v| u64::from_str_radix(v, 2).expect("Couldn't parse input."))
+                    .collect(),
+                width: input.lines().next().unwrap().len(),
+                length: input.lines().collect::<Vec<&str>>().len(),
+            }
+        )
+    }
+
+    fn one(&self, data: &mut Data) -> u64 {
+        let mut counts = Vec::<u64>::with_capacity(data.width);
+        counts.resize(data.width, 0);
+
+        for v in &data.input {
+            for i in 0..data.width {
                 counts[i] = counts[i] + if (v & (1 << i)) != 0 { 1 } else { 0 };
             }
         }
@@ -47,22 +66,22 @@ impl Day for Day3 {
         let mut gamma: u64 = 0;
         let mut epsilon: u64 = 0;
 
-        for i in 0..self.width {
-            if counts[i] > (self.length as u64) / 2 {
+        for i in 0..data.width {
+            if counts[i] > (data.length as u64) / 2 {
                 gamma = gamma + (1 << i);
             } else {
                 epsilon = epsilon + (1 << i);
             }
         }
 
-        Ok(gamma as u64 * epsilon as u64)
+        gamma as u64 * epsilon as u64
     }
 
-    fn second(&self) -> Result<u64, Box<dyn std::error::Error>> {
+    fn two(&self, data: &mut Data) -> u64 {
         println!("Since I really cant find what I did wrong, and I dont wanna spend more time on this today:");
         println!("https://www.youtube.com/watch?v=llqWTJGUFeE");
 
-        Ok(0)
+        0
 
         /*let mut o2_values: Vec<u64> = self
             .input

@@ -1,53 +1,149 @@
-use crate::DayMode;
+use aoc_macro::mod_days;
+use std::time::{Duration, Instant};
 
-pub trait Day {
-    fn new(input: &String) -> Self;
-    fn first(&self) -> Result<u64, Box<dyn std::error::Error>>;
-    fn second(&self) -> Result<u64, Box<dyn std::error::Error>>;
+// Thanks to andi-makes with his AoC project https://github.com/andi-makes/aoc2021,
+// this system is heavily inspired by his system.
+
+pub struct Day<const DAY: u8>;
+
+pub trait DayImpl<T> {
+    /// Parses the test input.
+    fn init_test() -> (Self, T)
+    where
+        Self: Sized;
+
+    fn expected_results() -> (u64, u64);
+
+    /// Parse input
+    fn init(input: &String) -> (Self, T)
+    where
+        Self: Sized;
+
+    /// Compute part 1
+    fn one(&self, data: &mut T) -> u64;
+
+    /// Compue part 2
+    fn two(&self, data: &mut T) -> u64;
+
+    /// Parse input and messure the time it took
+    fn init_timed(input: &String) -> ((Self, T), Duration)
+    where
+        Self: Sized,
+    {
+        let s = Instant::now();
+        (Self::init(input), s.elapsed())
+    }
+
+    /// Compute part 1 and messure the time it took
+    fn one_timed(&self, data: &mut T) -> (u64, Duration) {
+        let s = Instant::now();
+        (self.one(data), s.elapsed())
+    }
+
+    /// Compute part 2 and messure the time it took
+    fn two_timed(&self, data: &mut T) -> (u64, Duration) {
+        let s = Instant::now();
+        (self.two(data), s.elapsed())
+    }
+
+    /// Compute both parts
+    fn run(input: &String) -> (u64, u64)
+    where
+        Self: Sized,
+    {
+        let (day, mut data) = Self::init(input);
+        (day.one(&mut data), day.two(&mut data))
+    }
+
+    /// Init and compute part 1
+    fn run_one(input: &String) -> u64
+    where
+        Self: Sized,
+    {
+        let (day, mut data) = Self::init(input);
+        day.one(&mut data)
+    }
+
+    /// Init and compute part 1
+    fn run_two(input: &String) -> u64
+    where
+        Self: Sized,
+    {
+        let (day, mut data) = Self::init(input);
+        day.two(&mut data)
+    }
+
+    /// Init and compute part 1
+    fn run_one_timed(input: &String) -> (u64, Duration, Duration)
+    where
+        Self: Sized,
+    {
+        let ((day, mut data), init_t) = Self::init_timed(input);
+        let (one, one_t) = day.one_timed(&mut data);
+        (one, init_t, one_t)
+    }
+
+    /// Init and compute part 1
+    fn run_two_timed(input: &String) -> (u64, Duration, Duration)
+    where
+        Self: Sized,
+    {
+        let ((day, mut data), init_t) = Self::init_timed(input);
+        let (two, two_t) = day.two_timed(&mut data);
+        (two, init_t, two_t)
+    }
+
+    /// Compute both parts, and messure the time each step took
+    fn run_timed(input: &String) -> (u64, u64, Duration, Duration, Duration)
+    where
+        Self: Sized,
+    {
+        let ((day, mut data), i_t) = Self::init_timed(input);
+        let (one, one_t) = day.one_timed(&mut data);
+        let (two, two_t) = day.two_timed(&mut data);
+
+        (one, two, i_t, one_t, two_t)
+    }
+
+    /// Test part one
+    fn test_one() -> (bool, u64, u64)
+    where
+        Self: Sized,
+    {
+        let (day, mut data) = Self::init_test();
+        let one = day.one(&mut data);
+
+        let (one_e, _) = Self::expected_results();
+
+        (one_e == one, one, one_e)
+    }
+
+    /// Test part two
+    fn test_two() -> (bool, u64, u64)
+    where
+        Self: Sized,
+    {
+        let (day, mut data) = Self::init_test();
+        let two = day.two(&mut data);
+
+        let (two_e, _) = Self::expected_results();
+
+        (two_e == two, two, two_e)
+    }
+
+    /// Run both tests
+    fn test() -> ((bool, u64, u64), (bool, u64, u64))
+    where
+        Self: Sized,
+    {
+        let (day, mut data) = Self::init_test();
+        let one = day.one(&mut data);
+        let two = day.two(&mut data);
+
+        let (one_e, two_e) = Self::expected_results();
+
+        ((one_e == one, one, one_e), (two_e == two, two, two_e))
+    }
 }
 
-pub fn run_day<D: Day>(
-    input: &String,
-    mode: &DayMode,
-) -> Vec<Result<u64, Box<dyn std::error::Error>>> {
-    let mut output = Vec::with_capacity(match mode {
-        DayMode::One | DayMode::Two => 1,
-        DayMode::Both => 2,
-    });
-    let day = D::new(input);
-    match mode {
-        DayMode::One => output.push(day.first()),
-        DayMode::Two => output.push(day.second()),
-        DayMode::Both => {
-            output.push(day.first());
-            output.push(day.second())
-        }
-    };
-    output
-}
-
-pub mod d01;
-pub mod d02;
-pub mod d03;
-pub mod d04;
-//pub mod d05;
-//pub mod d06;
-//pub mod d07;
-//pub mod d08;
-//pub mod d09;
-//pub mod d10;
-//pub mod d11;
-//pub mod d12;
-//pub mod d13;
-//pub mod d14;
-//pub mod d15;
-//pub mod d16;
-//pub mod d17;
-//pub mod d18;
-//pub mod d19;
-//pub mod d20;
-//pub mod d21;
-//pub mod d22;
-//pub mod d23;
-//pub mod d24;
-//pub mod d25;
+mod_days!();
