@@ -50,25 +50,33 @@ pub fn test_day(day: u8, part: Part) {
             let ((one_p, one_r, one_e), (two_p, two_r, two_e)) = match_and_test_day_both!();
 
             println!("{}:", "Results".green().bold());
-            println!("\t{}: {}", "Part 1".green(), match one_p {
-                true => {
-                    "PASSED".green().bold()
-                },
-                false => {
-                    "FAILED".red().bold()
+            println!(
+                "\t{}: {}",
+                "Part 1".green(),
+                match one_p {
+                    true => {
+                        "PASSED".green().bold()
+                    }
+                    false => {
+                        "FAILED".red().bold()
+                    }
                 }
-            });
+            );
             println!("\t\tResult:   {}", one_r);
             println!("\t\tExpected: {}", one_e);
 
-            println!("\t{}: {}", "Part 2".green(), match two_p {
-                true => {
-                    "PASSED".green().bold()
-                },
-                false => {
-                    "FAILED".red().bold()
+            println!(
+                "\t{}: {}",
+                "Part 2".green(),
+                match two_p {
+                    true => {
+                        "PASSED".green().bold()
+                    }
+                    false => {
+                        "FAILED".red().bold()
+                    }
                 }
-            });
+            );
             println!("\t\tResult:   {}", two_r);
             println!("\t\tExpected: {}", two_e);
         }
@@ -76,14 +84,18 @@ pub fn test_day(day: u8, part: Part) {
             let (one_p, one_r, one_e) = match_and_test_day_one!();
 
             println!("{}:", "Results".green().bold());
-            println!("\t{}: {}", "Part 1".green(), match one_p {
-                true => {
-                    "PASSED".green().bold()
-                },
-                false => {
-                    "FAILED".red().bold()
+            println!(
+                "\t{}: {}",
+                "Part 1".green(),
+                match one_p {
+                    true => {
+                        "PASSED".green().bold()
+                    }
+                    false => {
+                        "FAILED".red().bold()
+                    }
                 }
-            });
+            );
             println!("\t\tResult:   {}", one_r);
             println!("\t\tExpected: {}", one_e);
         }
@@ -91,14 +103,18 @@ pub fn test_day(day: u8, part: Part) {
             let (two_p, two_r, two_e) = match_and_test_day_two!();
 
             println!("{}:", "Results".green().bold());
-            println!("\t{}: {}", "Part 2".green(), match two_p {
-                true => {
-                    "PASSED".green().bold()
-                },
-                false => {
-                    "FAILED".red().bold()
+            println!(
+                "\t{}: {}",
+                "Part 2".green(),
+                match two_p {
+                    true => {
+                        "PASSED".green().bold()
+                    }
+                    false => {
+                        "FAILED".red().bold()
+                    }
                 }
-            });
+            );
             println!("\t\tResult:   {}", two_r);
             println!("\t\tExpected: {}", two_e);
         }
