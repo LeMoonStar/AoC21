@@ -32,7 +32,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     }
 
     fn expected_results() -> (u64, u64) {
-        (0, 0)
+        (198, 230)
     }
 
     fn init(input: &String) -> (Self, Data)
