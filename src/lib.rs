@@ -22,6 +22,7 @@ pub fn run(day: u8, mode: &DayMode, input: &String) {
         1 => Success::Yes(run_day::<d01::Day1>(input, mode)),
         2 => Success::Yes(run_day::<d02::Day2>(input, mode)),
         3 => Success::Yes(run_day::<d03::Day3>(input, mode)),
+        4 => Success::Yes(run_day::<d04::Day4>(input, mode)),
         0 | 26.. => Success::No("This is not a valid day. only days in range of 1-25 are valid."),
         _ => Success::No("This day is not implemented yet."),
     };
