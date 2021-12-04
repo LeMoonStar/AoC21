@@ -126,7 +126,7 @@ pub trait DayImpl<T> {
         let (day, mut data) = Self::init_test();
         let two = day.two(&mut data);
 
-        let (two_e, _) = Self::expected_results();
+        let (_, two_e) = Self::expected_results();
 
         (two_e == two, two, two_e)
     }
