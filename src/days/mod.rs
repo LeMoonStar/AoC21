@@ -7,12 +7,21 @@ use std::time::{Duration, Instant};
 pub struct Day<const DAY: u8>;
 
 pub trait DayImpl<T> {
+    /// Parses the test input.
+    fn initTest() -> (Self, T)
+    where
+        Self: Sized;
+
+    fn expected_results() -> (u64, u64);
+
     /// Parse input
     fn init(input: &String) -> (Self, T)
     where
         Self: Sized;
+
     /// Compute part 1
     fn one(&self, data: &mut T) -> u64;
+
     /// Compue part 2
     fn two(&self, data: &mut T) -> u64;
 
@@ -24,11 +33,13 @@ pub trait DayImpl<T> {
         let s = Instant::now();
         (Self::init(input), s.elapsed())
     }
+
     /// Compute part 1 and messure the time it took
     fn one_timed(&self, data: &mut T) -> (u64, Duration) {
         let s = Instant::now();
         (self.one(data), s.elapsed())
     }
+
     /// Compute part 2 and messure the time it took
     fn two_timed(&self, data: &mut T) -> (u64, Duration) {
         let s = Instant::now();

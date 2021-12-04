@@ -4,6 +4,17 @@ const CURRENT_DAY: u8 = 1;
 
 type Data = Vec<u64>;
 impl DayImpl<Data> for Day<CURRENT_DAY> {
+    fn initTest() -> (Self, Data)
+    where
+        Self: Sized,
+    {
+        Self::init(&"test_inputs/test01.txt".to_owned())
+    }
+
+    fn expected_results() -> (u64, u64) {
+        (0, 0)
+    }
+
     fn init(input: &String) -> (Self, Data)
     where
         Self: Sized,
