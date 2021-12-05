@@ -48,4 +48,5 @@ This is just a small selection of solutions from an small community I am part of
 | [Daan Breur's AdventofCode](https://github.com/daanbreur/AdventofCode)                | Python(2021)                            |
 | [Gewi413's AdventOfCode](https://github.com/Gewi413/AdventOfCode)                     | Kotlin                                  |
 | [Luftkeks's AdventOfCode](https://github.com/luftkeks/AdventOfCode)                   | Golang(2021)                            |
-| [noeppi_noeppi's aoc](https://github.com/noeppi-noeppi/aoc)                           | Assembly, COBOL. Smalltalk, Pascal, ... |
+| [noeppi_noeppi's aoc](https://github.com/noeppi-noeppi/aoc)                           | Assembly, COBOL, Smalltalk, Pascal, ... |
+| [NetworkException's AdventOfCode](https://github.com/networkException/AdventOfCode)   | TypeScript                              |
