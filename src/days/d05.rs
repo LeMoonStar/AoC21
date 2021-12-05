@@ -118,7 +118,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     }
 
     fn one(&self, data: &mut Data) -> u64 {
-        let mut map = [[0; 1000]; 1000];
+        let mut map: [[u8; 1000]; 1000] = [[0; 1000]; 1000];
         let mut overlap_count = 0;
 
         for l in data {
@@ -135,7 +135,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     }
 
     fn two(&self, data: &mut Data) -> u64 {
-        let mut map = [[0; 1000]; 1000];
+        let mut map: [[u8; 1000]; 1000] = [[0; 1000]; 1000];
         let mut overlap_count = 0;
 
         for l in data {
