@@ -103,8 +103,6 @@ pub fn run_day(day: u8, part: Part, input: &String) {
 }
 
 pub fn test_day(day: u8, part: Part) {
-    vprintln!("Test{}", "abc");
-
     println!("{} Day {}", "Testing".green().bold(), day);
     println!("{}", "-----------------------".green().bold());
     match part {
