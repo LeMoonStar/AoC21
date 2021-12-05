@@ -1,3 +1,6 @@
+// Nightly features
+#![feature(int_abs_diff)]
+
 use crate::days::Day;
 use crate::days::DayImpl;
 use aoc_macro::*;
