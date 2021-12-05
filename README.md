@@ -38,9 +38,14 @@ the `--release` option is not required, but it results in better performance of 
 
 This is just a small selection of solutions from an small community I am part of.
 
-| Repository                                                                            | Language  |
-|---------------------------------------------------------------------------------------|-----------|
-| [1Turtle's AdventOfCode](https://github.com/1Turtle/AdventOfCode)                     | Lua(2021) |
-| [andi-make's aoc2021](https://github.com/andi-makes/aoc2021)                          | Rust      |
-| [joblo2213's Advent-Of-Code-2021](https://github.com/joblo2213/Advent-Of-Code-2021)   | Kotlin    |
-| [DerNiklaas's Advent-Of-Code-2021](https://github.com/derNiklaas/Advent-Of-Code-2021) | Kotlin    |
+| Repository                                                                            | Language                                |
+|---------------------------------------------------------------------------------------|-----------------------------------------|
+| [1Turtle's AdventOfCode](https://github.com/1Turtle/AdventOfCode)                     | Lua(2021)                               |
+| [andi-make's aoc2021](https://github.com/andi-makes/aoc2021)                          | Rust                                    |
+| [Jonas' AdventOfCode2021](https://github.com/J0B10/AdventOfCode2021)                  | Java                                    |
+| [DerNiklaas's Advent-Of-Code-2021](https://github.com/derNiklaas/Advent-Of-Code-2021) | Kotlin                                  |
+| [Trojaner's AdventofCode2021](https://github.com/TrojanerHD/AdventofCode2021)         | C++                                     |
+| [Daan Breur's AdventofCode](https://github.com/daanbreur/AdventofCode)                | Python(2021)                            |
+| [Gewi413's AdventOfCode](https://github.com/Gewi413/AdventOfCode)                     | Kotlin                                  |
+| [Luftkeks's AdventOfCode](https://github.com/luftkeks/AdventOfCode)                   | Golang(2021)                            |
+| [noeppi_noeppi's aoc](https://github.com/noeppi-noeppi/aoc)                           | Assembly, COBOL. Smalltalk, Pascal, ... |
