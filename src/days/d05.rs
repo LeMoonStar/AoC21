@@ -1,7 +1,5 @@
 use super::{Day, DayImpl};
-use crate::{dprintln, vprintln};
-use std::collections::HashMap;
-
+use crate::dprintln;
 const CURRENT_DAY: u8 = 5;
 
 #[derive(Debug, Clone)]
@@ -120,14 +118,14 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     }
 
     fn one(&self, data: &mut Data) -> u64 {
-        let mut map: HashMap<(u16, u16), u16> = HashMap::new();
+        let mut map = [[0; 1000]; 1000];
         let mut overlap_count = 0;
 
         for l in data {
             for p in &l.get_non_diagonal_points() {
-                map.insert(*p, map.get(&(p.0, p.1)).unwrap_or(&0) + 1);
+                map[p.0 as usize][p.1 as usize] += 1;
 
-                if *map.get(&(p.0, p.1)).unwrap_or(&0) == 2 {
+                if map[p.0 as usize][p.1 as usize] == 2 {
                     overlap_count += 1;
                 }
             }
@@ -137,7 +135,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     }
 
     fn two(&self, data: &mut Data) -> u64 {
-        let mut map: HashMap<(u16, u16), u16> = HashMap::new();
+        let mut map = [[0; 1000]; 1000];
         let mut overlap_count = 0;
 
         for l in data {
@@ -145,19 +143,12 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
                 dprintln!(
                     "setting point: {:?}, which currently is: {}",
                     p,
-                    map.get(&(p.0, p.1)).unwrap_or(&0)
+                    map[p.0 as usize][p.1 as usize]
                 );
 
-                if p.0 > 1000 {
-                    vprintln!("dangerous: {:?} at {:?}", p, l)
-                }
-                if p.1 > 1000 {
-                    vprintln!("dangerous: {:?} at {:?}", p, l)
-                }
+                map[p.0 as usize][p.1 as usize] += 1;
 
-                map.insert(*p, map.get(&(p.0, p.1)).unwrap_or(&0) + 1);
-
-                if *map.get(&(p.0, p.1)).unwrap_or(&0) == 2 {
+                if map[p.0 as usize][p.1 as usize] == 2 {
                     dprintln!("Overlap found at {:?}!", p);
                     overlap_count += 1;
                 }
