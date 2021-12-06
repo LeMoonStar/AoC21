@@ -83,7 +83,7 @@ pub fn run_day(day: u8, part: Part, input: &String) {
             (one, 0, init_t, one_t, Duration::ZERO)
         }
         Part::Two => {
-            let (two, init_t, two_t) = match_and_run_day_one!();
+            let (two, init_t, two_t) = match_and_run_day_two!();
             (0, two, init_t, Duration::ZERO, two_t)
         }
     };
