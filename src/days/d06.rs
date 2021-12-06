@@ -21,7 +21,6 @@ fn simulate_generation(data: &mut Data, generations: usize) -> u64 {
         new[8] = data[0];
 
         *data = new;
-        dprintln!("{:?} ({})", data, data.iter().sum::<u64>());
     }
     data.iter().sum()
 }
