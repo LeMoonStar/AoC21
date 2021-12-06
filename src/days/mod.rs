@@ -15,7 +15,7 @@ pub trait DayImpl<T> {
     fn expected_results() -> (u64, u64);
 
     /// Parse input
-    fn init(input: &String) -> (Self, T)
+    fn init(input: &str) -> (Self, T)
     where
         Self: Sized;
 
@@ -26,7 +26,7 @@ pub trait DayImpl<T> {
     fn two(&self, data: &mut T) -> u64;
 
     /// Parse input and messure the time it took
-    fn init_timed(input: &String) -> ((Self, T), Duration)
+    fn init_timed(input: &str) -> ((Self, T), Duration)
     where
         Self: Sized,
     {
@@ -47,7 +47,7 @@ pub trait DayImpl<T> {
     }
 
     /// Compute both parts
-    fn run(input: &String) -> (u64, u64)
+    fn run(input: &str) -> (u64, u64)
     where
         Self: Sized,
     {
@@ -56,7 +56,7 @@ pub trait DayImpl<T> {
     }
 
     /// Init and compute part 1
-    fn run_one(input: &String) -> u64
+    fn run_one(input: &str) -> u64
     where
         Self: Sized,
     {
@@ -65,7 +65,7 @@ pub trait DayImpl<T> {
     }
 
     /// Init and compute part 1
-    fn run_two(input: &String) -> u64
+    fn run_two(input: &str) -> u64
     where
         Self: Sized,
     {
@@ -74,7 +74,7 @@ pub trait DayImpl<T> {
     }
 
     /// Init and compute part 1
-    fn run_one_timed(input: &String) -> (u64, Duration, Duration)
+    fn run_one_timed(input: &str) -> (u64, Duration, Duration)
     where
         Self: Sized,
     {
@@ -84,7 +84,7 @@ pub trait DayImpl<T> {
     }
 
     /// Init and compute part 1
-    fn run_two_timed(input: &String) -> (u64, Duration, Duration)
+    fn run_two_timed(input: &str) -> (u64, Duration, Duration)
     where
         Self: Sized,
     {
@@ -94,7 +94,7 @@ pub trait DayImpl<T> {
     }
 
     /// Compute both parts, and messure the time each step took
-    fn run_timed(input: &String) -> (u64, u64, Duration, Duration, Duration)
+    fn run_timed(input: &str) -> (u64, u64, Duration, Duration, Duration)
     where
         Self: Sized,
     {

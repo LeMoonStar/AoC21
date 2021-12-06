@@ -15,7 +15,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         (0, 0)
     }
     
-    fn init(input: &String) -> (Self, Data)
+    fn init(input: &str) -> (Self, Data)
     where
         Self: Sized,
     {
@@ -23,7 +23,6 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             Self {},
             input
                 .lines()
-                .filter(|v| v.len() != 0)
                 .map(|v| v.parse::<u64>().expect("error while parsing input."))
                 .collect(),
         )

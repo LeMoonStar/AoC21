@@ -25,7 +25,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         (150, 900)
     }
     
-    fn init(input: &String) -> (Self, Data)
+    fn init(input: &str) -> (Self, Data)
     where
         Self: Sized,
     {
@@ -34,7 +34,6 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             Data {
                 input: input
                     .lines()
-                    .filter(|v| v.len() != 0)
                     .map(|v| match v.len() {
                         4 => Command::Up(v.get(v.len() - 1..).unwrap().parse::<u64>().unwrap()),
                         6 => Command::Down(v.get(v.len() - 1..).unwrap().parse::<u64>().unwrap()),

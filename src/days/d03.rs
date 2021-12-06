@@ -36,7 +36,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         (198, 230)
     }
 
-    fn init(input: &String) -> (Self, Data)
+    fn init(input: &str) -> (Self, Data)
     where
         Self: Sized,
     {
@@ -45,7 +45,6 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             Data {
                 input: input
                     .lines()
-                    .filter(|v| v.len() != 0)
                     .map(|v| u64::from_str_radix(v, 2).expect("Couldn't parse input."))
                     .collect(),
                 width: input.lines().next().unwrap().len(),

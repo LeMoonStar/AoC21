@@ -29,7 +29,7 @@ pub fn match_and_run_day_both(_input: TokenStream) -> TokenStream {
     let res = quote! {
         match day {
             #(#r => {
-                Day::<#r>::run_timed(input)
+                Day::<#r>::run_timed(input.trim_end())
             })*
             _ => panic!("Days out of Bounds! No presents for you!"),
         }
@@ -43,7 +43,7 @@ pub fn match_and_run_day_one(_input: TokenStream) -> TokenStream {
     let res = quote! {
         match day {
             #(#r => {
-                Day::<#r>::run_one_timed(input)
+                Day::<#r>::run_one_timed(input.trim_end())
             })*
             _ => panic!("Days out of Bounds! No presents for you!"),
         }
@@ -57,7 +57,7 @@ pub fn match_and_run_day_two(_input: TokenStream) -> TokenStream {
     let res = quote! {
         match day {
             #(#r => {
-                Day::<#r>::run_two_timed(input)
+                Day::<#r>::run_two_timed(input.trim_end())
             })*
             _ => panic!("Days out of Bounds! No presents for you!"),
         }
