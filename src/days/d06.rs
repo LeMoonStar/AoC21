@@ -5,8 +5,7 @@ const CURRENT_DAY: u8 = 6;
 
 pub type Data = [u64; 9];
 
-fn simulate_generation(data: &mut Data, generations: usize) -> Data {
-    let mut data: Data = data.clone();
+fn simulate_generation(data: &mut Data, generations: usize) -> u64 {
     for _ in 0..generations {
         let mut new: Data = [0; 9];
 
@@ -21,10 +20,10 @@ fn simulate_generation(data: &mut Data, generations: usize) -> Data {
 
         new[8] = data[0];
 
-        data = new;
+        *data = new;
         dprintln!("{:?} ({})", data, data.iter().sum::<u64>());
     }
-    data
+    data.iter().sum()
 }
 
 impl DayImpl<Data> for Day<CURRENT_DAY> {
@@ -54,10 +53,10 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     }
 
     fn one(&self, data: &mut Data) -> u64 {
-        simulate_generation(data, 80).iter().sum()
+        simulate_generation(data, 80)
     }
 
     fn two(&self, data: &mut Data) -> u64 {
-        simulate_generation(data, 256).iter().sum()
+        simulate_generation(data, 256)
     }
 }
