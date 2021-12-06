@@ -1,5 +1,4 @@
 use super::{Day, DayImpl};
-use crate::dprintln;
 
 const CURRENT_DAY: u8 = 6;
 
@@ -7,20 +6,19 @@ pub type Data = [u64; 9];
 
 fn simulate_generation(data: &mut Data, generations: usize) -> u64 {
     for _ in 0..generations {
-        let mut new: Data = [0; 9];
+        let new = data[0];
 
-        new[0] = data[1];
-        new[1] = data[2];
-        new[2] = data[3];
-        new[3] = data[4];
-        new[4] = data[5];
-        new[5] = data[6];
-        new[6] = data[7] + data[0];
-        new[7] = data[8];
+        data[0] = data[1];
+        data[1] = data[2];
+        data[2] = data[3];
+        data[3] = data[4];
+        data[4] = data[5];
+        data[5] = data[6];
+        data[6] = data[7];
+        data[7] = data[8];
 
-        new[8] = data[0];
-
-        *data = new;
+        data[8] = new;
+        data[6] += new;
     }
     data.iter().sum()
 }
