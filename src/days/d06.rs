@@ -7,7 +7,7 @@ type Data = [u64; 9];
 
 fn simulate_generation(data: &mut Data, generations: usize) -> Data {
     let mut data: Data = data.clone();
-    for i in 0..generations {
+    for _ in 0..generations {
         let mut new: Data = [0; 9];
 
         new[0] = data[1];
