@@ -128,7 +128,7 @@ fn main() {
             let input = get_auto_input(day, &session, cache);
             run_day(day, part, &input);
         }
-        ("test", _) => test_day(day, part),
+        ("test", _) => if !test_day(day, part) {std::process::exit(1);},
         _ => panic!("Unexpected Subcommand."),
     }
 }

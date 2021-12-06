@@ -122,7 +122,7 @@ pub fn run_day(day: u8, part: Part, input: &String) {
     }
 }
 
-pub fn test_day(day: u8, part: Part) {
+pub fn test_day(day: u8, part: Part) -> bool {
     println!("{} Day {}", "Testing".green().bold(), day);
     println!("{}", "-----------------------".green().bold());
     match part {
@@ -159,6 +159,8 @@ pub fn test_day(day: u8, part: Part) {
             );
             println!("\t\tResult:   {}", format!("{}", two_r).bold().blue());
             println!("\t\tExpected: {}", format!("{}", two_e).bold().blue());
+
+            !(!two_p || !one_p)
         }
         Part::One => {
             let (one_p, one_r, one_e) = match_and_test_day_one!();
@@ -178,6 +180,8 @@ pub fn test_day(day: u8, part: Part) {
             );
             println!("\t\tResult:   {}", format!("{}", one_r).bold().blue());
             println!("\t\tExpected: {}", format!("{}", one_e).bold().blue());
+
+            !one_p
         }
         Part::Two => {
             let (two_p, two_r, two_e) = match_and_test_day_two!();
@@ -197,6 +201,8 @@ pub fn test_day(day: u8, part: Part) {
             );
             println!("\t\tResult:   {}", format!("{}", two_r).bold().blue());
             println!("\t\tExpected: {}", format!("{}", two_e).bold().blue());
+
+            !two_p
         }
     }
 }
