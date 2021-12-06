@@ -109,16 +109,16 @@ pub fn run_day(day: u8, part: Part, input: &String) {
     };
 
     println!("{}:", "Results".green().bold());
-    println!("\t{}: {}", "Parsing time".green(), dynamic_range_time_format(&init_t).bold());
+    println!("\t{}: {}", "Parsing time".green(), dynamic_range_time_format(&init_t).bold().blue());
     if part == Part::Both || part == Part::One {
         println!("\t{}:", "Part 1".green());
-        println!("\t\tSolution: {}", one);
-        println!("\t\tTook:     {}", dynamic_range_time_format(&one_t).bold());
+        println!("\t\tSolution: {}", format!("{}", one).bold().blue());
+        println!("\t\tTook:     {}", dynamic_range_time_format(&one_t).bold().blue());
     }
     if part == Part::Both || part == Part::Two {
         println!("\t{}:", "Part 2".green());
-        println!("\t\tSolution: {}", two);
-        println!("\t\tTook:     {}", dynamic_range_time_format(&two_t).bold());
+        println!("\t\tSolution: {}", format!("{}", two).bold().blue());
+        println!("\t\tTook:     {}", dynamic_range_time_format(&two_t).bold().blue());
     }
 }
 
@@ -142,8 +142,8 @@ pub fn test_day(day: u8, part: Part) {
                     }
                 }
             );
-            println!("\t\tResult:   {}", one_r);
-            println!("\t\tExpected: {}", one_e);
+            println!("\t\tResult:   {}", format!("{}", one_r).bold().blue());
+            println!("\t\tExpected: {}", format!("{}", one_e).bold().blue());
 
             println!(
                 "\t{}: {}",
@@ -157,8 +157,8 @@ pub fn test_day(day: u8, part: Part) {
                     }
                 }
             );
-            println!("\t\tResult:   {}", two_r);
-            println!("\t\tExpected: {}", two_e);
+            println!("\t\tResult:   {}", format!("{}", two_r).bold().blue());
+            println!("\t\tExpected: {}", format!("{}", two_e).bold().blue());
         }
         Part::One => {
             let (one_p, one_r, one_e) = match_and_test_day_one!();
@@ -176,8 +176,8 @@ pub fn test_day(day: u8, part: Part) {
                     }
                 }
             );
-            println!("\t\tResult:   {}", one_r);
-            println!("\t\tExpected: {}", one_e);
+            println!("\t\tResult:   {}", format!("{}", one_r).bold().blue());
+            println!("\t\tExpected: {}", format!("{}", one_e).bold().blue());
         }
         Part::Two => {
             let (two_p, two_r, two_e) = match_and_test_day_two!();
@@ -195,8 +195,8 @@ pub fn test_day(day: u8, part: Part) {
                     }
                 }
             );
-            println!("\t\tResult:   {}", two_r);
-            println!("\t\tExpected: {}", two_e);
+            println!("\t\tResult:   {}", format!("{}", two_r).bold().blue());
+            println!("\t\tExpected: {}", format!("{}", two_e).bold().blue());
         }
     }
 }
