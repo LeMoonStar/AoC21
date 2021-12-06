@@ -73,6 +73,26 @@ macro_rules! dprintln {
     };
 }
 
+fn dynamic_range_time_format(d: &Duration) -> String {
+    let nanos = d.as_nanos();
+
+    if nanos < 1000 {                               // less than one microsecond
+        format!("{} ns", nanos)
+    } else if nanos < 100000 {                      // less than 10 microseconds
+        format!("{:.3} µs", nanos as f64 / 1000.0)
+    } else if nanos < 1000000 {                     // less than one millisecond
+        format!("{} µs", nanos / 1000)
+    } else if nanos < 10000000 {                    // less than 10 milliseconds
+        format!("{:.3} ms", nanos as f64 / 1000000.0)
+    } else if nanos < 1000000000 {                  // less than a second
+        format!("{} ms", nanos / 1000000)
+    } else if nanos < 10000000000 {                 // less than 10 seconds
+        format!("{:.3} s", nanos as f64 / 1000000000.0)
+    } else {                                        // more than 10 seconds
+        format!("{} s", nanos / 1000000000)
+    }
+}
+
 pub fn run_day(day: u8, part: Part, input: &String) {
     println!("{} Day {}", "Starting".green().bold(), day);
     println!("{}", "-----------------------".green().bold());
@@ -89,16 +109,16 @@ pub fn run_day(day: u8, part: Part, input: &String) {
     };
 
     println!("{}:", "Results".green().bold());
-    println!("\t{}: {} µs", "Parsing time".green(), init_t.as_micros());
+    println!("\t{}: {}", "Parsing time".green(), dynamic_range_time_format(&init_t).bold());
     if part == Part::Both || part == Part::One {
         println!("\t{}:", "Part 1".green());
         println!("\t\tSolution: {}", one);
-        println!("\t\tTook:     {} µs", one_t.as_micros());
+        println!("\t\tTook:     {}", dynamic_range_time_format(&one_t).bold());
     }
     if part == Part::Both || part == Part::Two {
         println!("\t{}:", "Part 2".green());
         println!("\t\tSolution: {}", two);
-        println!("\t\tTook:     {} µs", two_t.as_micros());
+        println!("\t\tTook:     {}", dynamic_range_time_format(&two_t).bold());
     }
 }
 
