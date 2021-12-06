@@ -1,8 +1,32 @@
 use super::{Day, DayImpl};
+use crate::dprintln;
 
 const CURRENT_DAY: u8 = 6;
 
-type Data = Vec<u64>;
+type Data = [u64; 9];
+
+fn simulate_generation(data: &mut Data, generations: usize) -> Data {
+    let mut data: Data = data.clone();
+    for i in 0..generations {
+        let mut new: Data = [0; 9];
+
+        new[0] = data[1];
+        new[1] = data[2];
+        new[2] = data[3];
+        new[3] = data[4];
+        new[4] = data[5];
+        new[5] = data[6];
+        new[6] = data[7] + data[0];
+        new[7] = data[8];
+
+        new[8] = data[0];
+
+        data = new;
+        dprintln!("{:?} ({})", data, data.iter().sum::<u64>());
+    }
+    data
+}
+
 impl DayImpl<Data> for Day<CURRENT_DAY> {
     fn init_test() -> (Self, Data)
     where
@@ -12,28 +36,28 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     }
 
     fn expected_results() -> (u64, u64) {
-        (0, 0)
+        (5934, 26984457539)
     }
-    
+
     fn init(input: &String) -> (Self, Data)
     where
         Self: Sized,
     {
-        (
-            Self {},
-            input
-                .lines()
-                .filter(|v| v.len() != 0)
-                .map(|v| v.parse::<u64>().expect("error while parsing input."))
-                .collect(),
-        )
+        let mut fish: [u64; 9] = [0; 9];
+
+        input.split(',').for_each(|v| {
+            let i = v.parse::<usize>().expect("Couldnt parse input.");
+            fish[i] = fish[i] + 1;
+        });
+
+        (Self {}, fish)
     }
 
     fn one(&self, data: &mut Data) -> u64 {
-        data.len() as u64
+        simulate_generation(data, 80).iter().sum()
     }
 
     fn two(&self, data: &mut Data) -> u64 {
-        data.len() as u64
+        simulate_generation(data, 256).iter().sum()
     }
 }
