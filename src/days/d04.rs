@@ -97,7 +97,6 @@ impl Board {
     }
 }
 
-
 impl DayImpl<Data> for Day<CURRENT_DAY> {
     fn init_test() -> (Self, Data)
     where
@@ -109,7 +108,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     fn expected_results() -> (u64, u64) {
         (4512, 1924)
     }
-    
+
     fn init(input: &str) -> (Self, Data)
     where
         Self: Sized,
@@ -130,7 +129,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
                     .filter(|v| v.len() != 0)
                     .map(|v| Board::new(&v))
                     .collect(),
-            }
+            },
         )
     }
 

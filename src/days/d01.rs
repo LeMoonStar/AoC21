@@ -29,7 +29,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
                     .lines()
                     .map(|l| l.parse::<u64>().expect("couldnt parse input."))
                     .collect(),
-            }
+            },
         )
     }
 

@@ -24,7 +24,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     fn expected_results() -> (u64, u64) {
         (150, 900)
     }
-    
+
     fn init(input: &str) -> (Self, Data)
     where
         Self: Sized,
@@ -37,11 +37,13 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
                     .map(|v| match v.len() {
                         4 => Command::Up(v.get(v.len() - 1..).unwrap().parse::<u64>().unwrap()),
                         6 => Command::Down(v.get(v.len() - 1..).unwrap().parse::<u64>().unwrap()),
-                        9 => Command::Forward(v.get(v.len() - 1..).unwrap().parse::<u64>().unwrap()),
+                        9 => {
+                            Command::Forward(v.get(v.len() - 1..).unwrap().parse::<u64>().unwrap())
+                        }
                         _ => panic!("malformed input."),
                     })
                     .collect(),
-            }
+            },
         )
     }
 

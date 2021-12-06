@@ -107,13 +107,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     where
         Self: Sized,
     {
-        (
-            Self {},
-            input
-                .lines()
-                .map(|v| Line::new(v))
-                .collect(),
-        )
+        (Self {}, input.lines().map(|v| Line::new(v)).collect())
     }
 
     fn one(&self, data: &mut Data) -> u64 {

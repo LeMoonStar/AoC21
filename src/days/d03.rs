@@ -49,7 +49,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
                     .collect(),
                 width: input.lines().next().unwrap().len(),
                 length: input.lines().collect::<Vec<&str>>().len(),
-            }
+            },
         )
     }
 
@@ -86,13 +86,14 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             .collect();
 
         for i in 1..data.width {
-            let offset = i;//self.width - i;
+            let offset = i; //self.width - i;
             let positive_bit_count = count_bits(&o2_values, offset);
             dprintln!("-");
             dprintln!("{:?}", o2_values);
             dprintln!(
                 "{} values with a 1(true) at offset {}",
-                positive_bit_count, offset
+                positive_bit_count,
+                offset
             );
             dprintln!(
                 "There are curently {} elements. Meaning that there are {} elements with a 0(false)",
