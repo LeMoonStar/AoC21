@@ -3,7 +3,7 @@ use crate::dprintln;
 
 const CURRENT_DAY: u8 = 6;
 
-type Data = [u64; 9];
+pub type Data = [u64; 9];
 
 fn simulate_generation(data: &mut Data, generations: usize) -> Data {
     let mut data: Data = data.clone();

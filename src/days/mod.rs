@@ -6,7 +6,10 @@ use std::time::{Duration, Instant};
 
 pub struct Day<const DAY: u8>;
 
-pub trait DayImpl<T> {
+pub trait DayImpl<T>
+where
+    T: Clone,
+{
     /// Parses the test input.
     fn init_test() -> (Self, T)
     where
@@ -51,8 +54,8 @@ pub trait DayImpl<T> {
     where
         Self: Sized,
     {
-        let (day, mut data) = Self::init(input);
-        (day.one(&mut data), day.two(&mut data))
+        let (day, data) = Self::init(input);
+        (day.one(&mut data.clone()), day.two(&mut data.clone()))
     }
 
     /// Init and compute part 1
@@ -98,9 +101,9 @@ pub trait DayImpl<T> {
     where
         Self: Sized,
     {
-        let ((day, mut data), i_t) = Self::init_timed(input);
-        let (one, one_t) = day.one_timed(&mut data);
-        let (two, two_t) = day.two_timed(&mut data);
+        let ((day, data), i_t) = Self::init_timed(input);
+        let (one, one_t) = day.one_timed(&mut data.clone());
+        let (two, two_t) = day.two_timed(&mut data.clone());
 
         (one, two, i_t, one_t, two_t)
     }
@@ -136,9 +139,9 @@ pub trait DayImpl<T> {
     where
         Self: Sized,
     {
-        let (day, mut data) = Self::init_test();
-        let one = day.one(&mut data);
-        let two = day.two(&mut data);
+        let (day, data) = Self::init_test();
+        let one = day.one(&mut data.clone());
+        let two = day.two(&mut data.clone());
 
         let (one_e, two_e) = Self::expected_results();
 

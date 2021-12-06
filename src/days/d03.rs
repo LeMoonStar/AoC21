@@ -18,6 +18,7 @@ fn count_bits(vec: &Vec<u64>, offset: usize) -> u64 {
     count
 }
 
+#[derive(Clone, Debug)]
 pub struct Data {
     input: Vec<u64>,
     width: usize,

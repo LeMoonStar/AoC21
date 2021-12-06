@@ -2,9 +2,7 @@ use super::{Day, DayImpl};
 
 const CURRENT_DAY: u8 = 1;
 
-pub struct Data {
-    input: Vec<u64>,
-}
+pub type Data = Vec<u64>;
 
 impl DayImpl<Data> for Day<CURRENT_DAY> {
     fn init_test() -> (Self, Data)
@@ -24,19 +22,17 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     {
         (
             Self {},
-            Data {
-                input: input
-                    .lines()
-                    .map(|l| l.parse::<u64>().expect("couldnt parse input."))
-                    .collect(),
-            },
+            input
+                .lines()
+                .map(|l| l.parse::<u64>().expect("couldnt parse input."))
+                .collect(),
         )
     }
 
     fn one(&self, data: &mut Data) -> u64 {
         let mut last: u64 = 0;
         let mut count = 0;
-        for v in &data.input {
+        for v in data {
             if last != 0 && *v > last {
                 count = count + 1;
             }
@@ -48,8 +44,8 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
     fn two(&self, data: &mut Data) -> u64 {
         let mut last: u64 = 0;
         let mut count = 0;
-        for i in 1..data.input.len() - 1 {
-            let sum: u64 = data.input[i - 1] + data.input[i] + data.input[i + 1];
+        for i in 1..data.len() - 1 {
+            let sum: u64 = data[i - 1] + data[i] + data[i + 1];
 
             if i != 1 && sum > last {
                 count = count + 1;

@@ -90,7 +90,8 @@ impl Line {
     }
 }
 
-type Data = Vec<Line>;
+pub type Data = Vec<Line>;
+
 impl DayImpl<Data> for Day<CURRENT_DAY> {
     fn init_test() -> (Self, Data)
     where
