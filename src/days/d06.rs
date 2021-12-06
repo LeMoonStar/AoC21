@@ -27,10 +27,7 @@ fn simulate_generation(data: &mut Data, generations: usize) -> u64 {
 }
 
 impl DayImpl<Data> for Day<CURRENT_DAY> {
-    fn init_test() -> (Self, Data)
-    where
-        Self: Sized,
-    {
+    fn init_test() -> (Self, Data) {
         Self::init(&include_str!("test_inputs/test06.txt").to_owned())
     }
 
@@ -38,10 +35,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         (5934, 26984457539)
     }
 
-    fn init(input: &str) -> (Self, Data)
-    where
-        Self: Sized,
-    {
+    fn init(input: &str) -> (Self, Data) {
         let mut fish: [u64; 9] = [0; 9];
 
         input.split(',').for_each(|v| {

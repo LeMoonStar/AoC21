@@ -98,10 +98,7 @@ impl Board {
 }
 
 impl DayImpl<Data> for Day<CURRENT_DAY> {
-    fn init_test() -> (Self, Data)
-    where
-        Self: Sized,
-    {
+    fn init_test() -> (Self, Data) {
         Self::init(&include_str!("test_inputs/test04.txt").to_owned())
     }
 
@@ -109,10 +106,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         (4512, 1924)
     }
 
-    fn init(input: &str) -> (Self, Data)
-    where
-        Self: Sized,
-    {
+    fn init(input: &str) -> (Self, Data) {
         (
             Self {},
             Data {

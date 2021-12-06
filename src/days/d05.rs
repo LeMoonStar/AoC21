@@ -93,10 +93,7 @@ impl Line {
 pub type Data = Vec<Line>;
 
 impl DayImpl<Data> for Day<CURRENT_DAY> {
-    fn init_test() -> (Self, Data)
-    where
-        Self: Sized,
-    {
+    fn init_test() -> (Self, Data) {
         Self::init(&include_str!("test_inputs/test05.txt").to_owned())
     }
 
@@ -104,10 +101,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         (5, 12)
     }
 
-    fn init(input: &str) -> (Self, Data)
-    where
-        Self: Sized,
-    {
+    fn init(input: &str) -> (Self, Data) {
         (Self {}, input.lines().map(|v| Line::new(v)).collect())
     }
 

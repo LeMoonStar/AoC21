@@ -12,10 +12,7 @@ pub enum Command {
 pub type Data = Vec<Command>;
 
 impl DayImpl<Data> for Day<CURRENT_DAY> {
-    fn init_test() -> (Self, Data)
-    where
-        Self: Sized,
-    {
+    fn init_test() -> (Self, Data) {
         Self::init(&include_str!("test_inputs/test02.txt").to_owned())
     }
 
@@ -23,10 +20,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         (150, 900)
     }
 
-    fn init(input: &str) -> (Self, Data)
-    where
-        Self: Sized,
-    {
+    fn init(input: &str) -> (Self, Data) {
         (
             Self {},
             input
@@ -34,9 +28,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
                 .map(|v| match v.len() {
                     4 => Command::Up(v.get(v.len() - 1..).unwrap().parse::<u64>().unwrap()),
                     6 => Command::Down(v.get(v.len() - 1..).unwrap().parse::<u64>().unwrap()),
-                    9 => {
-                        Command::Forward(v.get(v.len() - 1..).unwrap().parse::<u64>().unwrap())
-                    }
+                    9 => Command::Forward(v.get(v.len() - 1..).unwrap().parse::<u64>().unwrap()),
                     _ => panic!("malformed input."),
                 })
                 .collect(),

@@ -26,10 +26,7 @@ pub struct Data {
 }
 
 impl DayImpl<Data> for Day<CURRENT_DAY> {
-    fn init_test() -> (Self, Data)
-    where
-        Self: Sized,
-    {
+    fn init_test() -> (Self, Data) {
         Self::init(&include_str!("test_inputs/test03.txt").to_owned())
     }
 
@@ -37,10 +34,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         (198, 230)
     }
 
-    fn init(input: &str) -> (Self, Data)
-    where
-        Self: Sized,
-    {
+    fn init(input: &str) -> (Self, Data) {
         (
             Self {},
             Data {
