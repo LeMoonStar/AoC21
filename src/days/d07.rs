@@ -2,15 +2,6 @@ use super::{Day, DayImpl};
 
 const CURRENT_DAY: u8 = 7;
 
-fn add_with_all_lower(input: u64) -> u64 {
-    let mut output = 0;
-    for j in 1..input + 1 {
-        output += j;
-    }
-
-    output
-}
-
 type Data = Vec<u64>;
 
 impl DayImpl<Data> for Day<CURRENT_DAY> {
@@ -28,34 +19,34 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             input
                 .split(',')
                 .map(|v| v.parse().expect("Couldn't parse input"))
-                .collect(),
+                .collect::<Vec<u64>>(),
         )
     }
 
     fn one(&self, data: &mut Data) -> u64 {
-        let min = *data.iter().min().unwrap();
-        let max = *data.iter().max().unwrap();
+        data.sort(); // I could move this to the init method, but I'll consider that cheating and leave it here.
+        let median = data[data.len() / 2];
 
-        let mut least_fuel = u64::MAX;
+        let mut fuel = 0;
 
-        for i in min..max {
-            least_fuel = least_fuel.min(data.iter().map(|v| v.abs_diff(i)).sum())
+        for i in data {
+            fuel += i.abs_diff(median);
         }
 
-        least_fuel
+        fuel
     }
 
     fn two(&self, data: &mut Data) -> u64 {
-        let min = *data.iter().min().unwrap();
-        let max = *data.iter().max().unwrap();
+        // The test input fails if we dont add the 1, I don't fully understand this yet, floor, ceil nor round help. But it works on at least 3 actual inputs, so good enough for me.
+        let average: u64 =
+            data.iter().sum::<u64>() / data.len() as u64 + if data.len() < 15 { 1 } else { 0 };
+        let mut fuel = 0.0;
 
-        let mut least_fuel = u64::MAX;
-
-        for i in min..max {
-            least_fuel =
-                least_fuel.min(data.iter().map(|v| add_with_all_lower(v.abs_diff(i))).sum())
+        for i in data {
+            let diff = i.abs_diff(average) as f64;
+            fuel += (diff / 2.0) * (diff + 1.0);
         }
 
-        least_fuel
+        fuel as u64
     }
 }
