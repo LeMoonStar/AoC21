@@ -1,5 +1,6 @@
 use aoc21::{run_day, set_verbosity, test_day, Part, Verbosity};
 use clap::{App, AppSettings, Arg, SubCommand};
+use colored::*;
 use reqwest::blocking::Client;
 use reqwest::cookie::Jar;
 use std::env;
@@ -75,6 +76,15 @@ fn main() {
             )
         )
         .get_matches();
+
+    if cfg!(debug_assertions) {
+        println!(
+            "{}",
+            "This binary was built in debug mode. To improve performance, please add --release to the build command."
+                .red()
+                .bold()
+        );
+    }
 
     let day = matches
         .value_of("day")
