@@ -76,19 +76,26 @@ macro_rules! dprintln {
 fn dynamic_range_time_format(d: &Duration) -> String {
     let nanos = d.as_nanos();
 
-    if nanos < 1000 {                               // less than one microsecond
+    if nanos < 1000 {
+        // less than one microsecond
         format!("{} ns", nanos)
-    } else if nanos < 100000 {                      // less than 10 microseconds
+    } else if nanos < 100000 {
+        // less than 10 microseconds
         format!("{:.3} µs", nanos as f64 / 1000.0)
-    } else if nanos < 1000000 {                     // less than one millisecond
+    } else if nanos < 1000000 {
+        // less than one millisecond
         format!("{} µs", nanos / 1000)
-    } else if nanos < 10000000 {                    // less than 10 milliseconds
+    } else if nanos < 10000000 {
+        // less than 10 milliseconds
         format!("{:.3} ms", nanos as f64 / 1000000.0)
-    } else if nanos < 1000000000 {                  // less than a second
+    } else if nanos < 1000000000 {
+        // less than a second
         format!("{} ms", nanos / 1000000)
-    } else if nanos < 10000000000 {                 // less than 10 seconds
+    } else if nanos < 10000000000 {
+        // less than 10 seconds
         format!("{:.3} s", nanos as f64 / 1000000000.0)
-    } else {                                        // more than 10 seconds
+    } else {
+        // more than 10 seconds
         format!("{} s", nanos / 1000000000)
     }
 }
@@ -109,16 +116,26 @@ pub fn run_day(day: u8, part: Part, input: &String) {
     };
 
     println!("{}:", "Results".green().bold());
-    println!("\t{}: {}", "Parsing time".green(), dynamic_range_time_format(&init_t).bold().blue());
+    println!(
+        "\t{}: {}",
+        "Parsing time".green(),
+        dynamic_range_time_format(&init_t).bold().blue()
+    );
     if part == Part::Both || part == Part::One {
         println!("\t{}:", "Part 1".green());
         println!("\t\tSolution: {}", format!("{}", one).bold().blue());
-        println!("\t\tTook:     {}", dynamic_range_time_format(&one_t).bold().blue());
+        println!(
+            "\t\tTook:     {}",
+            dynamic_range_time_format(&one_t).bold().blue()
+        );
     }
     if part == Part::Both || part == Part::Two {
         println!("\t{}:", "Part 2".green());
         println!("\t\tSolution: {}", format!("{}", two).bold().blue());
-        println!("\t\tTook:     {}", dynamic_range_time_format(&two_t).bold().blue());
+        println!(
+            "\t\tTook:     {}",
+            dynamic_range_time_format(&two_t).bold().blue()
+        );
     }
 }
 
