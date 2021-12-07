@@ -3,8 +3,8 @@
 [![About](https://img.shields.io/badge/Advent%20of%20Code-2021-brightgreen)](https://adventofcode.com/2021/about)
 [![Language: Rust](https://img.shields.io/badge/Language-Rust-orange.svg)](https://en.wikipedia.org/wiki/Rust_(programming_language))
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://mit-license.org/)
-![Days completed](https://img.shields.io/badge/Days%20completed-4.5-red)
-![Stars](https://img.shields.io/badge/Stars-9-yellow)
+![Days completed](https://img.shields.io/badge/Days%20completed-6.5-red)
+![Stars](https://img.shields.io/badge/Stars-13-yellow)
 
 This repository contains my solutions for the Advent of Code 2021 challanges written in Rust.  
 I am currently still learning rust so please dont jude the quality of my code.
