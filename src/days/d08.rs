@@ -37,7 +37,7 @@ enum UniqueDigit {
 }
 
 impl UniqueDigit {
-    fn get_id(&self) -> usize {
+    fn _get_id(&self) -> usize {
         match self {
             Self::One => 0,
             Self::Four => 1,
@@ -92,7 +92,7 @@ impl Digit {
 
 #[derive(Clone, Copy, Debug)]
 pub struct Entry {
-    input: [Digit; 10],
+    _input: [Digit; 10],
     output_digits: [Digit; 4],
 }
 
@@ -118,7 +118,7 @@ impl Entry {
             );
         }
         Self {
-            input: parts[0].clone().try_into().unwrap(),
+            _input: parts[0].clone().try_into().unwrap(),
             output_digits: parts[1].clone().try_into().unwrap(),
         }
     }
@@ -188,7 +188,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         output
     }
 
-    fn two(&self, data: &mut Data) -> u64 {
+    fn two(&self, _data: &mut Data) -> u64 {
         /*let mut output: u64 = 0;
         for e in data {
             let mut map_info = MappingInformation::new();
