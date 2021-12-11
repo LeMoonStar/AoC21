@@ -46,7 +46,7 @@ fn flash(data: &mut Data, pos: (usize, usize), offset: (isize, isize), by_neigbo
 fn simulate(data: &mut Data, steps: usize) -> u64 {
     let mut flashes = 0;
 
-    for s in 0..steps {
+    for _ in 0..steps {
         let mut buf = data.clone();
         for row in 0..buf.len() {
             for col in 0..buf[row as usize].len() {
