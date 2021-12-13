@@ -1,4 +1,4 @@
-use super::{Day, DayImpl};
+use super::{Answer, Day, DayImpl};
 use crate::dprintln;
 const CURRENT_DAY: u8 = 5;
 
@@ -97,15 +97,15 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         Self::init(&include_str!("test_inputs/test05.txt").to_owned())
     }
 
-    fn expected_results() -> (u64, u64) {
-        (5, 12)
+    fn expected_results() -> (Answer, Answer) {
+        (Answer::Number(5), Answer::Number(12))
     }
 
     fn init(input: &str) -> (Self, Data) {
         (Self {}, input.lines().map(|v| Line::new(v)).collect())
     }
 
-    fn one(&self, data: &mut Data) -> u64 {
+    fn one(&self, data: &mut Data) -> Answer {
         let mut map: [[u8; 1000]; 1000] = [[0; 1000]; 1000];
         let mut overlap_count = 0;
 
@@ -119,10 +119,10 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             }
         }
 
-        overlap_count
+        Answer::Number(overlap_count)
     }
 
-    fn two(&self, data: &mut Data) -> u64 {
+    fn two(&self, data: &mut Data) -> Answer {
         let mut map: [[u8; 1000]; 1000] = [[0; 1000]; 1000];
         let mut overlap_count = 0;
 
@@ -143,6 +143,6 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             }
         }
 
-        overlap_count
+        Answer::Number(overlap_count)
     }
 }

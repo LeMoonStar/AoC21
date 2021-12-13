@@ -1,4 +1,4 @@
-use super::{Day, DayImpl};
+use super::{Answer, Day, DayImpl};
 
 const CURRENT_DAY: u8 = 7;
 
@@ -9,8 +9,8 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         Self::init(&include_str!("test_inputs/test07.txt").to_owned())
     }
 
-    fn expected_results() -> (u64, u64) {
-        (37, 168)
+    fn expected_results() -> (Answer, Answer) {
+        (Answer::Number(37), Answer::Number(168))
     }
 
     fn init(input: &str) -> (Self, Data) {
@@ -23,7 +23,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         )
     }
 
-    fn one(&self, data: &mut Data) -> u64 {
+    fn one(&self, data: &mut Data) -> Answer {
         data.sort(); // I could move this to the init method, but I'll consider that cheating and leave it here.
         let median = data[data.len() / 2];
 
@@ -33,10 +33,10 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             fuel += i.abs_diff(median);
         }
 
-        fuel
+        Answer::Number(fuel)
     }
 
-    fn two(&self, data: &mut Data) -> u64 {
+    fn two(&self, data: &mut Data) -> Answer {
         // The test input fails if we dont add the 1, I don't fully understand this yet, floor, ceil nor round help. But it works on at least 3 actual inputs, so good enough for me.
         let average: u64 =
             data.iter().sum::<u64>() / data.len() as u64 + if data.len() < 15 { 1 } else { 0 };
@@ -47,6 +47,6 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             fuel += (diff / 2.0) * (diff + 1.0);
         }
 
-        fuel as u64
+        Answer::Number(fuel as u64)
     }
 }

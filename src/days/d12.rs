@@ -1,4 +1,4 @@
-use super::{Day, DayImpl};
+use super::{Answer, Day, DayImpl};
 use std::collections::HashMap;
 
 const CURRENT_DAY: u8 = 12;
@@ -134,8 +134,8 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         Self::init(&include_str!("test_inputs/test12.txt").to_owned())
     }
 
-    fn expected_results() -> (u64, u64) {
-        (226, 3509)
+    fn expected_results() -> (Answer, Answer) {
+        (Answer::Number(226), Answer::Number(3509))
     }
 
     fn init(input: &str) -> (Self, Data) {
@@ -161,21 +161,21 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         (Self {}, nodes)
     }
 
-    fn one(&self, data: &mut Data) -> u64 {
-        data.get("start").unwrap().count_paths(
+    fn one(&self, data: &mut Data) -> Answer {
+        Answer::Number(data.get("start").unwrap().count_paths(
             "end",
             data,
             &mut Vec::new(), /*&mut Vec::new()*/
-        )
+        ))
     }
 
-    fn two(&self, data: &mut Data) -> u64 {
-        data.get("start").unwrap().count_paths_visit_twice(
+    fn two(&self, data: &mut Data) -> Answer {
+        Answer::Number(data.get("start").unwrap().count_paths_visit_twice(
             "end",
             data,
             &mut vec!["start".to_owned()],
             ("".to_owned(), 0),
             //&mut Vec::new(),
-        )
+        ))
     }
 }

@@ -6,6 +6,33 @@ use std::time::{Duration, Instant};
 
 pub struct Day<const DAY: u8>;
 
+#[derive(Debug, Clone, PartialEq)]
+pub enum Answer {
+    Number(u64),
+    String(String),
+}
+
+impl std::fmt::Display for Answer {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        match self {
+            Self::Number(n) => write!(f, "{}", n),
+            Self::String(s) => write!(f, "{}", s),
+        }
+    }
+}
+
+impl From<u64> for Answer {
+    fn from(n: u64) -> Self {
+        Self::Number(n)
+    }
+}
+
+impl From<String> for Answer {
+    fn from(s: String) -> Self {
+        Self::String(s)
+    }
+}
+
 pub trait DayImpl<T>
 where
     T: Clone,
@@ -15,7 +42,7 @@ where
     where
         Self: Sized;
 
-    fn expected_results() -> (u64, u64);
+    fn expected_results() -> (Answer, Answer);
 
     /// Parse input
     fn init(input: &str) -> (Self, T)
@@ -23,10 +50,10 @@ where
         Self: Sized;
 
     /// Compute part 1
-    fn one(&self, data: &mut T) -> u64;
+    fn one(&self, data: &mut T) -> Answer;
 
     /// Compue part 2
-    fn two(&self, data: &mut T) -> u64;
+    fn two(&self, data: &mut T) -> Answer;
 
     /// Parse input and messure the time it took
     fn init_timed(input: &str) -> ((Self, T), Duration)
@@ -38,19 +65,19 @@ where
     }
 
     /// Compute part 1 and messure the time it took
-    fn one_timed(&self, data: &mut T) -> (u64, Duration) {
+    fn one_timed(&self, data: &mut T) -> (Answer, Duration) {
         let s = Instant::now();
         (self.one(data), s.elapsed())
     }
 
     /// Compute part 2 and messure the time it took
-    fn two_timed(&self, data: &mut T) -> (u64, Duration) {
+    fn two_timed(&self, data: &mut T) -> (Answer, Duration) {
         let s = Instant::now();
         (self.two(data), s.elapsed())
     }
 
     /// Compute both parts
-    fn run(input: &str) -> (u64, u64)
+    fn run(input: &str) -> (Answer, Answer)
     where
         Self: Sized,
     {
@@ -59,7 +86,7 @@ where
     }
 
     /// Init and compute part 1
-    fn run_one(input: &str) -> u64
+    fn run_one(input: &str) -> Answer
     where
         Self: Sized,
     {
@@ -68,7 +95,7 @@ where
     }
 
     /// Init and compute part 1
-    fn run_two(input: &str) -> u64
+    fn run_two(input: &str) -> Answer
     where
         Self: Sized,
     {
@@ -77,7 +104,7 @@ where
     }
 
     /// Init and compute part 1
-    fn run_one_timed(input: &str) -> (u64, Duration, Duration)
+    fn run_one_timed(input: &str) -> (Answer, Duration, Duration)
     where
         Self: Sized,
     {
@@ -87,7 +114,7 @@ where
     }
 
     /// Init and compute part 1
-    fn run_two_timed(input: &str) -> (u64, Duration, Duration)
+    fn run_two_timed(input: &str) -> (Answer, Duration, Duration)
     where
         Self: Sized,
     {
@@ -97,7 +124,7 @@ where
     }
 
     /// Compute both parts, and messure the time each step took
-    fn run_timed(input: &str) -> (u64, u64, Duration, Duration, Duration)
+    fn run_timed(input: &str) -> (Answer, Answer, Duration, Duration, Duration)
     where
         Self: Sized,
     {
@@ -109,7 +136,7 @@ where
     }
 
     /// Test part one
-    fn test_one() -> (bool, u64, u64)
+    fn test_one() -> (bool, Answer, Answer)
     where
         Self: Sized,
     {
@@ -122,7 +149,7 @@ where
     }
 
     /// Test part two
-    fn test_two() -> (bool, u64, u64)
+    fn test_two() -> (bool, Answer, Answer)
     where
         Self: Sized,
     {
@@ -135,7 +162,7 @@ where
     }
 
     /// Run both tests
-    fn test() -> ((bool, u64, u64), (bool, u64, u64))
+    fn test() -> ((bool, Answer, Answer), (bool, Answer, Answer))
     where
         Self: Sized,
     {

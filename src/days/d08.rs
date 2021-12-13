@@ -1,4 +1,4 @@
-use super::{Day, DayImpl};
+use super::{Answer, Day, DayImpl};
 
 const CURRENT_DAY: u8 = 8;
 
@@ -168,15 +168,15 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         Self::init(&include_str!("test_inputs/test08.txt").to_owned())
     }
 
-    fn expected_results() -> (u64, u64) {
-        (26, 61229)
+    fn expected_results() -> (Answer, Answer) {
+        (Answer::Number(26), Answer::Number(61229))
     }
 
     fn init(input: &str) -> (Self, Data) {
         (Self {}, input.lines().map(|v| Entry::new(v)).collect())
     }
 
-    fn one(&self, data: &mut Data) -> u64 {
+    fn one(&self, data: &mut Data) -> Answer {
         let mut output: u64 = 0;
         for e in data {
             for d in &e.output_digits {
@@ -185,10 +185,10 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
                 }
             }
         }
-        output
+        Answer::Number(output)
     }
 
-    fn two(&self, _data: &mut Data) -> u64 {
+    fn two(&self, _data: &mut Data) -> Answer {
         /*let mut output: u64 = 0;
         for e in data {
             let mut map_info = MappingInformation::new();
@@ -208,6 +208,6 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         }
         output*/
         println!("[PART 2]: Well, I give up, I am too stupid and everybody else managed to do it in less than an hour. Meanwhile I am stuck trying to do this in a overly complicated and stupid way. Don't be like me, dont be dumb... look at the solution sof other people.");
-        0
+        Answer::Number(0)
     }
 }

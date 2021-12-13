@@ -1,4 +1,4 @@
-use super::{Day, DayImpl};
+use super::{Answer, Day, DayImpl};
 use crate::vprintln;
 
 const CURRENT_DAY: u8 = 9;
@@ -63,8 +63,8 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         Self::init(&include_str!("test_inputs/test09.txt").to_owned())
     }
 
-    fn expected_results() -> (u64, u64) {
-        (15, 1134)
+    fn expected_results() -> (Answer, Answer) {
+        (Answer::Number(15), Answer::Number(1134))
     }
 
     fn init(input: &str) -> (Self, Data) {
@@ -81,7 +81,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         )
     }
 
-    fn one(&self, data: &mut Data) -> u64 {
+    fn one(&self, data: &mut Data) -> Answer {
         let mut risk_sum = 0;
         for row in 0..data.len() as i32 {
             for col in 0..data[row as usize].len() as i32 {
@@ -95,10 +95,10 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             }
         }
 
-        risk_sum
+        Answer::Number(risk_sum)
     }
 
-    fn two(&self, data: &mut Data) -> u64 {
+    fn two(&self, data: &mut Data) -> Answer {
         let mut map: Vec<Vec<MapType>> = data
             .iter()
             .map(|v| {
@@ -135,6 +135,8 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             panic!("less than 3 basins.")
         }
 
-        basins[basins.len() - 1] * basins[basins.len() - 2] * basins[basins.len() - 3]
+        Answer::Number(
+            basins[basins.len() - 1] * basins[basins.len() - 2] * basins[basins.len() - 3],
+        )
     }
 }

@@ -1,4 +1,4 @@
-use super::{Day, DayImpl};
+use super::{Answer, Day, DayImpl};
 
 const CURRENT_DAY: u8 = 10;
 
@@ -90,8 +90,8 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         Self::init(&include_str!("test_inputs/test10.txt").to_owned())
     }
 
-    fn expected_results() -> (u64, u64) {
-        (26397, 288957)
+    fn expected_results() -> (Answer, Answer) {
+        (Answer::Number(26397), Answer::Number(288957))
     }
 
     fn init(input: &str) -> (Self, Data) {
@@ -104,7 +104,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         )
     }
 
-    fn one(&self, data: &mut Data) -> u64 {
+    fn one(&self, data: &mut Data) -> Answer {
         let mut score = 0;
 
         for l in data {
@@ -117,10 +117,10 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             }
         }
 
-        score
+        Answer::Number(score)
     }
 
-    fn two(&self, data: &mut Data) -> u64 {
+    fn two(&self, data: &mut Data) -> Answer {
         let mut scores: Vec<u64> = Vec::new();
 
         for l in data {
@@ -144,6 +144,6 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
 
         scores.sort();
 
-        scores[scores.len() / 2]
+        Answer::Number(scores[scores.len() / 2])
     }
 }

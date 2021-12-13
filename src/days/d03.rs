@@ -1,4 +1,4 @@
-use super::{Day, DayImpl};
+use super::{Answer, Day, DayImpl};
 use crate::dprintln;
 
 const CURRENT_DAY: u8 = 3;
@@ -30,8 +30,8 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         Self::init(&include_str!("test_inputs/test03.txt").to_owned())
     }
 
-    fn expected_results() -> (u64, u64) {
-        (198, 230)
+    fn expected_results() -> (Answer, Answer) {
+        (Answer::Number(198), Answer::Number(230))
     }
 
     fn init(input: &str) -> (Self, Data) {
@@ -48,7 +48,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         )
     }
 
-    fn one(&self, data: &mut Data) -> u64 {
+    fn one(&self, data: &mut Data) -> Answer {
         let mut counts = Vec::<u64>::with_capacity(data.width);
         counts.resize(data.width, 0);
 
@@ -69,10 +69,10 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             }
         }
 
-        gamma as u64 * epsilon as u64
+        Answer::Number(gamma as u64 * epsilon as u64)
     }
 
-    fn two(&self, data: &mut Data) -> u64 {
+    fn two(&self, data: &mut Data) -> Answer {
         let mut o2_values: Vec<u64> = data
             .input
             .iter()
@@ -114,6 +114,6 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
 
         dprintln!("O2 rating: {}", o2_rating);
 
-        o2_rating
+        Answer::Number(o2_rating)
     }
 }

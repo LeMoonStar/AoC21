@@ -1,4 +1,4 @@
-use super::{Day, DayImpl};
+use super::{Answer, Day, DayImpl};
 
 const CURRENT_DAY: u8 = 2;
 
@@ -16,8 +16,8 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         Self::init(&include_str!("test_inputs/test02.txt").to_owned())
     }
 
-    fn expected_results() -> (u64, u64) {
-        (150, 900)
+    fn expected_results() -> (Answer, Answer) {
+        (Answer::Number(150), Answer::Number(900))
     }
 
     fn init(input: &str) -> (Self, Data) {
@@ -35,7 +35,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         )
     }
 
-    fn one(&self, data: &mut Data) -> u64 {
+    fn one(&self, data: &mut Data) -> Answer {
         let mut depth: u64 = 0;
         let mut horizontal_pos: u64 = 0;
         for c in data {
@@ -45,10 +45,10 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
                 Command::Forward(v) => horizontal_pos = horizontal_pos + (*v as u64),
             }
         }
-        (depth * horizontal_pos) as u64
+        Answer::Number((depth * horizontal_pos) as u64)
     }
 
-    fn two(&self, data: &mut Data) -> u64 {
+    fn two(&self, data: &mut Data) -> Answer {
         let mut depth: u64 = 0;
         let mut aim: u64 = 0;
         let mut horizontal_pos: u64 = 0;
@@ -62,6 +62,6 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
                 }
             }
         }
-        depth * horizontal_pos
+        Answer::Number(depth * horizontal_pos)
     }
 }

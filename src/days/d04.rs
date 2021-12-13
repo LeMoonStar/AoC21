@@ -1,4 +1,4 @@
-use super::{Day, DayImpl};
+use super::{Answer, Day, DayImpl};
 
 const CURRENT_DAY: u8 = 4;
 
@@ -102,8 +102,8 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         Self::init(&include_str!("test_inputs/test04.txt").to_owned())
     }
 
-    fn expected_results() -> (u64, u64) {
-        (4512, 1924)
+    fn expected_results() -> (Answer, Answer) {
+        (Answer::Number(4512), Answer::Number(1924))
     }
 
     fn init(input: &str) -> (Self, Data) {
@@ -127,7 +127,7 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
         )
     }
 
-    fn one(&self, data: &mut Data) -> u64 {
+    fn one(&self, data: &mut Data) -> Answer {
         let mut boards = data.boards.clone();
 
         let mut result = 0;
@@ -144,10 +144,10 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             }
         }
 
-        result
+        Answer::Number(result)
     }
 
-    fn two(&self, data: &mut Data) -> u64 {
+    fn two(&self, data: &mut Data) -> Answer {
         let mut boards: Vec<Board> = data.boards.clone();
         let mut result = 0;
         for n in &data.numbers {
@@ -167,6 +167,6 @@ impl DayImpl<Data> for Day<CURRENT_DAY> {
             }
         }
 
-        result
+        Answer::Number(result)
     }
 }

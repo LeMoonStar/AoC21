@@ -1,6 +1,7 @@
 // Nightly features
 #![feature(int_abs_diff)]
 
+use crate::days::Answer;
 use crate::days::Day;
 use crate::days::DayImpl;
 use aoc_macro::*;
@@ -107,11 +108,11 @@ pub fn run_day(day: u8, part: Part, input: &String) {
         Part::Both => match_and_run_day_both!(),
         Part::One => {
             let (one, init_t, one_t) = match_and_run_day_one!();
-            (one, 0, init_t, one_t, Duration::ZERO)
+            (one, Answer::Number(0), init_t, one_t, Duration::ZERO)
         }
         Part::Two => {
             let (two, init_t, two_t) = match_and_run_day_two!();
-            (0, two, init_t, Duration::ZERO, two_t)
+            (Answer::Number(0), two, init_t, Duration::ZERO, two_t)
         }
     };
 
